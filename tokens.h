@@ -1,0 +1,6 @@
+// constantes para os tokens 
+enum {
+  SOME=1, ALL, VALUE, MIN, MAX, EXACTLY, THAT, NOT, AND,
+  OR, Class, EquivalentTo, Individuals, SubClassOf, DisjointClasses,
+  ID, PROP, NAME,CARDINAL,SYMBOL, TYPE
+  }; 
