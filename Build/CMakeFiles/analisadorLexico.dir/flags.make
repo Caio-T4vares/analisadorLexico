@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/caio/repos/compiladores/trabalho/analisadorLexico/Build -I/home/caio/repos/compiladores/trabalho/analisadorLexico
+CXX_INCLUDES = -I/home/caio-vinicius/repos/projects/trab/analisadorLexico/Build -I/home/caio-vinicius/repos/projects/trab/analisadorLexico
 
 CXX_FLAGS = -O3 -DNDEBUG
 

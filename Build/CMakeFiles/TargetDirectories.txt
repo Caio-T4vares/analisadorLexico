@@ -1,3 +1,3 @@
-/home/caio/repos/compiladores/trabalho/analisadorLexico/Build/CMakeFiles/analisadorLexico.dir
-/home/caio/repos/compiladores/trabalho/analisadorLexico/Build/CMakeFiles/edit_cache.dir
-/home/caio/repos/compiladores/trabalho/analisadorLexico/Build/CMakeFiles/rebuild_cache.dir
+/home/caio-vinicius/repos/projects/trab/analisadorLexico/Build/CMakeFiles/analisadorLexico.dir
+/home/caio-vinicius/repos/projects/trab/analisadorLexico/Build/CMakeFiles/edit_cache.dir
+/home/caio-vinicius/repos/projects/trab/analisadorLexico/Build/CMakeFiles/rebuild_cache.dir

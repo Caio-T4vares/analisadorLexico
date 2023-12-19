@@ -8,9 +8,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/caio/repos/compiladores/trabalho/analisadorLexico/analisadorLexico.cpp" "CMakeFiles/analisadorLexico.dir/analisadorLexico.cpp.o" "gcc" "CMakeFiles/analisadorLexico.dir/analisadorLexico.cpp.o.d"
-  "/home/caio/repos/compiladores/trabalho/analisadorLexico/Build/lex.yy.cc" "CMakeFiles/analisadorLexico.dir/lex.yy.cc.o" "gcc" "CMakeFiles/analisadorLexico.dir/lex.yy.cc.o.d"
-  "/home/caio/repos/compiladores/trabalho/analisadorLexico/parser.cpp" "CMakeFiles/analisadorLexico.dir/parser.cpp.o" "gcc" "CMakeFiles/analisadorLexico.dir/parser.cpp.o.d"
+  "/home/caio-vinicius/repos/projects/trab/analisadorLexico/analisadorLexico.cpp" "CMakeFiles/analisadorLexico.dir/analisadorLexico.cpp.o" "gcc" "CMakeFiles/analisadorLexico.dir/analisadorLexico.cpp.o.d"
+  "/home/caio-vinicius/repos/projects/trab/analisadorLexico/Build/lex.yy.cc" "CMakeFiles/analisadorLexico.dir/lex.yy.cc.o" "gcc" "CMakeFiles/analisadorLexico.dir/lex.yy.cc.o.d"
+  "/home/caio-vinicius/repos/projects/trab/analisadorLexico/parser.cpp" "CMakeFiles/analisadorLexico.dir/parser.cpp.o" "gcc" "CMakeFiles/analisadorLexico.dir/parser.cpp.o.d"
   )
 
 # Targets to which this target links.

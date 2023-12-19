@@ -15,11 +15,11 @@ Parser::Parser()
 	id_table["not"] = tag::NOT;
 	id_table["and"] = tag::AND;
 	id_table["or"] = tag::OR;
-	id_table["class"] = tag::Class;
-	id_table["equivalentto"] = tag::EquivalentTo;
+	id_table["Class"] = tag::Class;
+	id_table["EquivalentTo"] = tag::EquivalentTo;
 	id_table["individuals"] = tag::Individuals;
-	id_table["subclassof"] = tag::SubClassOf;
-	id_table["disjointclasses"] = tag::DisjointClasses;
+	id_table["SubClassOf"] = tag::SubClassOf;
+	id_table["DisjointClasses"] = tag::DisjointClasses;
 
 }
 
@@ -48,8 +48,8 @@ void Parser::Start()
                 cout << scanner.YYText() << std::endl;
                 AddInIdTable(s, tag::ID);
                 break;
-            case 
-                PROP: cout << "PROP:";
+            case PROP:
+                cout << "PROP:";
                 cout << scanner.YYText() << std::endl;
                 AddInIdTable(s, tag::PROP);
                 break;
@@ -106,6 +106,7 @@ void Parser::Start()
             case Class:
                 cout << "Class:";
                 cout << scanner.YYText() << std::endl;
+
                 break;
             case EquivalentTo:
                 cout << "EquivalentTo:";
@@ -138,6 +139,6 @@ void Parser::Start()
 
     for (auto it = id_table.begin(); it != id_table.end(); ++it) {
         // Imprime a chave e o valor
-        std::cout << it->first << ": " << it->second << std::endl;
+        std::cout << it->first << " : " << it->second << std::endl;
   }
 }

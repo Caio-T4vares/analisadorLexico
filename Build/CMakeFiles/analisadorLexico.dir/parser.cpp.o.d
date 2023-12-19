@@ -1,7 +1,7 @@
 CMakeFiles/analisadorLexico.dir/parser.cpp.o: \
- /home/caio/repos/compiladores/trabalho/analisadorLexico/parser.cpp \
+ /home/caio-vinicius/repos/projects/trab/analisadorLexico/parser.cpp \
  /usr/include/stdc-predef.h \
- /home/caio/repos/compiladores/trabalho/analisadorLexico/parser.h \
+ /home/caio-vinicius/repos/projects/trab/analisadorLexico/parser.h \
  /usr/include/FlexLexer.h /usr/include/c++/11/iostream \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
@@ -153,4 +153,15 @@ CMakeFiles/analisadorLexico.dir/parser.cpp.o: \
  /usr/include/c++/11/bits/basic_ios.tcc \
  /usr/include/c++/11/bits/ostream.tcc /usr/include/c++/11/istream \
  /usr/include/c++/11/bits/istream.tcc \
- /home/caio/repos/compiladores/trabalho/analisadorLexico/tokens.h
+ /home/caio-vinicius/repos/projects/trab/analisadorLexico/tokens.h \
+ /usr/include/c++/11/unordered_map \
+ /usr/include/c++/11/ext/aligned_buffer.h \
+ /usr/include/c++/11/bits/hashtable.h \
+ /usr/include/c++/11/bits/hashtable_policy.h /usr/include/c++/11/tuple \
+ /usr/include/c++/11/utility /usr/include/c++/11/bits/stl_relops.h \
+ /usr/include/c++/11/array /usr/include/c++/11/bits/uses_allocator.h \
+ /usr/include/c++/11/bits/invoke.h \
+ /usr/include/c++/11/bits/enable_special_members.h \
+ /usr/include/c++/11/bits/node_handle.h \
+ /usr/include/c++/11/bits/unordered_map.h \
+ /usr/include/c++/11/bits/erase_if.h

@@ -1,4 +1,4 @@
-# Install script for directory: /home/caio/repos/compiladores/trabalho/analisadorLexico
+# Install script for directory: /home/caio-vinicius/repos/projects/trab/analisadorLexico
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/caio/repos/compiladores/trabalho/analisadorLexico/Build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/caio-vinicius/repos/projects/trab/analisadorLexico/Build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

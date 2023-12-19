@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/caio/repos/compiladores/trabalho/analisadorLexico
+CMAKE_SOURCE_DIR = /home/caio-vinicius/repos/projects/trab/analisadorLexico
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/caio/repos/compiladores/trabalho/analisadorLexico/Build
+CMAKE_BINARY_DIR = /home/caio-vinicius/repos/projects/trab/analisadorLexico/Build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/analisadorLexico.dir/depend.make
@@ -70,50 +70,50 @@ include CMakeFiles/analisadorLexico.dir/progress.make
 include CMakeFiles/analisadorLexico.dir/flags.make
 
 lex.yy.cc: ../lexer.l
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/caio/repos/compiladores/trabalho/analisadorLexico/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "[FLEX][Lexer] Building scanner with flex 2.6.4"
-	cd /home/caio/repos/compiladores/trabalho/analisadorLexico && /usr/bin/flex -+ -o/home/caio/repos/compiladores/trabalho/analisadorLexico/Build/lex.yy.cc lexer.l
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/caio-vinicius/repos/projects/trab/analisadorLexico/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "[FLEX][Lexer] Building scanner with flex 2.6.4"
+	cd /home/caio-vinicius/repos/projects/trab/analisadorLexico && /usr/bin/flex -+ -o/home/caio-vinicius/repos/projects/trab/analisadorLexico/Build/lex.yy.cc lexer.l
 
 CMakeFiles/analisadorLexico.dir/parser.cpp.o: CMakeFiles/analisadorLexico.dir/flags.make
 CMakeFiles/analisadorLexico.dir/parser.cpp.o: ../parser.cpp
 CMakeFiles/analisadorLexico.dir/parser.cpp.o: CMakeFiles/analisadorLexico.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/caio/repos/compiladores/trabalho/analisadorLexico/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/analisadorLexico.dir/parser.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/analisadorLexico.dir/parser.cpp.o -MF CMakeFiles/analisadorLexico.dir/parser.cpp.o.d -o CMakeFiles/analisadorLexico.dir/parser.cpp.o -c /home/caio/repos/compiladores/trabalho/analisadorLexico/parser.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/caio-vinicius/repos/projects/trab/analisadorLexico/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/analisadorLexico.dir/parser.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/analisadorLexico.dir/parser.cpp.o -MF CMakeFiles/analisadorLexico.dir/parser.cpp.o.d -o CMakeFiles/analisadorLexico.dir/parser.cpp.o -c /home/caio-vinicius/repos/projects/trab/analisadorLexico/parser.cpp
 
 CMakeFiles/analisadorLexico.dir/parser.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/analisadorLexico.dir/parser.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/caio/repos/compiladores/trabalho/analisadorLexico/parser.cpp > CMakeFiles/analisadorLexico.dir/parser.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/caio-vinicius/repos/projects/trab/analisadorLexico/parser.cpp > CMakeFiles/analisadorLexico.dir/parser.cpp.i
 
 CMakeFiles/analisadorLexico.dir/parser.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/analisadorLexico.dir/parser.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/caio/repos/compiladores/trabalho/analisadorLexico/parser.cpp -o CMakeFiles/analisadorLexico.dir/parser.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/caio-vinicius/repos/projects/trab/analisadorLexico/parser.cpp -o CMakeFiles/analisadorLexico.dir/parser.cpp.s
 
 CMakeFiles/analisadorLexico.dir/analisadorLexico.cpp.o: CMakeFiles/analisadorLexico.dir/flags.make
 CMakeFiles/analisadorLexico.dir/analisadorLexico.cpp.o: ../analisadorLexico.cpp
 CMakeFiles/analisadorLexico.dir/analisadorLexico.cpp.o: CMakeFiles/analisadorLexico.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/caio/repos/compiladores/trabalho/analisadorLexico/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/analisadorLexico.dir/analisadorLexico.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/analisadorLexico.dir/analisadorLexico.cpp.o -MF CMakeFiles/analisadorLexico.dir/analisadorLexico.cpp.o.d -o CMakeFiles/analisadorLexico.dir/analisadorLexico.cpp.o -c /home/caio/repos/compiladores/trabalho/analisadorLexico/analisadorLexico.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/caio-vinicius/repos/projects/trab/analisadorLexico/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/analisadorLexico.dir/analisadorLexico.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/analisadorLexico.dir/analisadorLexico.cpp.o -MF CMakeFiles/analisadorLexico.dir/analisadorLexico.cpp.o.d -o CMakeFiles/analisadorLexico.dir/analisadorLexico.cpp.o -c /home/caio-vinicius/repos/projects/trab/analisadorLexico/analisadorLexico.cpp
 
 CMakeFiles/analisadorLexico.dir/analisadorLexico.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/analisadorLexico.dir/analisadorLexico.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/caio/repos/compiladores/trabalho/analisadorLexico/analisadorLexico.cpp > CMakeFiles/analisadorLexico.dir/analisadorLexico.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/caio-vinicius/repos/projects/trab/analisadorLexico/analisadorLexico.cpp > CMakeFiles/analisadorLexico.dir/analisadorLexico.cpp.i
 
 CMakeFiles/analisadorLexico.dir/analisadorLexico.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/analisadorLexico.dir/analisadorLexico.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/caio/repos/compiladores/trabalho/analisadorLexico/analisadorLexico.cpp -o CMakeFiles/analisadorLexico.dir/analisadorLexico.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/caio-vinicius/repos/projects/trab/analisadorLexico/analisadorLexico.cpp -o CMakeFiles/analisadorLexico.dir/analisadorLexico.cpp.s
 
 CMakeFiles/analisadorLexico.dir/lex.yy.cc.o: CMakeFiles/analisadorLexico.dir/flags.make
 CMakeFiles/analisadorLexico.dir/lex.yy.cc.o: lex.yy.cc
 CMakeFiles/analisadorLexico.dir/lex.yy.cc.o: CMakeFiles/analisadorLexico.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/caio/repos/compiladores/trabalho/analisadorLexico/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/analisadorLexico.dir/lex.yy.cc.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/analisadorLexico.dir/lex.yy.cc.o -MF CMakeFiles/analisadorLexico.dir/lex.yy.cc.o.d -o CMakeFiles/analisadorLexico.dir/lex.yy.cc.o -c /home/caio/repos/compiladores/trabalho/analisadorLexico/Build/lex.yy.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/caio-vinicius/repos/projects/trab/analisadorLexico/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/analisadorLexico.dir/lex.yy.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/analisadorLexico.dir/lex.yy.cc.o -MF CMakeFiles/analisadorLexico.dir/lex.yy.cc.o.d -o CMakeFiles/analisadorLexico.dir/lex.yy.cc.o -c /home/caio-vinicius/repos/projects/trab/analisadorLexico/Build/lex.yy.cc
 
 CMakeFiles/analisadorLexico.dir/lex.yy.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/analisadorLexico.dir/lex.yy.cc.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/caio/repos/compiladores/trabalho/analisadorLexico/Build/lex.yy.cc > CMakeFiles/analisadorLexico.dir/lex.yy.cc.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/caio-vinicius/repos/projects/trab/analisadorLexico/Build/lex.yy.cc > CMakeFiles/analisadorLexico.dir/lex.yy.cc.i
 
 CMakeFiles/analisadorLexico.dir/lex.yy.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/analisadorLexico.dir/lex.yy.cc.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/caio/repos/compiladores/trabalho/analisadorLexico/Build/lex.yy.cc -o CMakeFiles/analisadorLexico.dir/lex.yy.cc.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/caio-vinicius/repos/projects/trab/analisadorLexico/Build/lex.yy.cc -o CMakeFiles/analisadorLexico.dir/lex.yy.cc.s
 
 # Object files for target analisadorLexico
 analisadorLexico_OBJECTS = \
@@ -129,7 +129,7 @@ analisadorLexico: CMakeFiles/analisadorLexico.dir/analisadorLexico.cpp.o
 analisadorLexico: CMakeFiles/analisadorLexico.dir/lex.yy.cc.o
 analisadorLexico: CMakeFiles/analisadorLexico.dir/build.make
 analisadorLexico: CMakeFiles/analisadorLexico.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/caio/repos/compiladores/trabalho/analisadorLexico/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable analisadorLexico"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/caio-vinicius/repos/projects/trab/analisadorLexico/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable analisadorLexico"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/analisadorLexico.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -141,6 +141,6 @@ CMakeFiles/analisadorLexico.dir/clean:
 .PHONY : CMakeFiles/analisadorLexico.dir/clean
 
 CMakeFiles/analisadorLexico.dir/depend: lex.yy.cc
-	cd /home/caio/repos/compiladores/trabalho/analisadorLexico/Build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/caio/repos/compiladores/trabalho/analisadorLexico /home/caio/repos/compiladores/trabalho/analisadorLexico /home/caio/repos/compiladores/trabalho/analisadorLexico/Build /home/caio/repos/compiladores/trabalho/analisadorLexico/Build /home/caio/repos/compiladores/trabalho/analisadorLexico/Build/CMakeFiles/analisadorLexico.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/caio-vinicius/repos/projects/trab/analisadorLexico/Build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/caio-vinicius/repos/projects/trab/analisadorLexico /home/caio-vinicius/repos/projects/trab/analisadorLexico /home/caio-vinicius/repos/projects/trab/analisadorLexico/Build /home/caio-vinicius/repos/projects/trab/analisadorLexico/Build /home/caio-vinicius/repos/projects/trab/analisadorLexico/Build/CMakeFiles/analisadorLexico.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/analisadorLexico.dir/depend
 
