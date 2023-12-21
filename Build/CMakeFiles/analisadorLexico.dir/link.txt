@@ -1,1 +1,0 @@
-/usr/bin/c++ -O3 -DNDEBUG -rdynamic CMakeFiles/analisadorLexico.dir/parser.cpp.o CMakeFiles/analisadorLexico.dir/analisadorLexico.cpp.o CMakeFiles/analisadorLexico.dir/lex.yy.cc.o -o analisadorLexico 
