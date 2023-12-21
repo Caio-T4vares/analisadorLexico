@@ -11,7 +11,7 @@ brancos {delim}+
 letra	[A-Za-z]
 cardinal	[0-9]
 id [A-Z]{letra}*(_[A-Z]{letra}*)?
-prop ("has"([A-Z]{letra}*)*)|([a-z]{letra}*)|([^i][^s]([A-Z]{letra}*)*Of)
+prop (has([A-Z]{letra}*)*)|([a-z]{letra}*)|(is([A-Z]{letra}*)+Of)
 name [A-Z]{letra}*{cardinal}+
 symbol [\[\]\{\}\(\)><">=""<=",]
 type [a-z]*:[a-z]*
@@ -40,7 +40,11 @@ type [a-z]*:[a-z]*
 {name} return NAME;
 {id}		return ID;  
 {cardinal}	    return CARDINAL; 
-.           cout << YYText() << " é um token inválido!\n"; 
+.           {
+          std::string defaultMsg = "Não reconhecido : ";
+          std::string msg = defaultMsg + YYText();
+          throw(msg); 
+}
 
 %%
 
