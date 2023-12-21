@@ -45,6 +45,7 @@ private:
     int EquivalentToQuant=0;
     int SubClassOfQuant=0;
     int DisjointClassesQuant=0;
+	int onlyQuant=0;
 	
 public:
 	Parser();
