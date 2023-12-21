@@ -131,7 +131,7 @@ void Parser::Start()
                 SubClassOfQuant += 1;
                 break;
             case DisjointClasses:
-                AddInTodosTokens("DISJOINTCLASSES", "DisjointClasses");
+                AddInTodosTokens("DISJOINTCLASSES", "DisjointClasses:");
                 DisjointClassesQuant += 1;
                 break;
             case SYMBOL:
