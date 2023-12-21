@@ -16,6 +16,7 @@ name [A-Z]{letra}*{cardinal}+
 symbol [\[\]\{\}\(\)><">=""<=",]
 type ("xsd:"|"rdfs:"|"owl:")[a-z]*
 %%
+
 {brancos}	; // nenhuma ação e nenhum retorno
 "some"|"SOME" return SOME;
 "all"|"ALL" return ALL;
@@ -39,6 +40,7 @@ type ("xsd:"|"rdfs:"|"owl:")[a-z]*
 {id}		return ID;  
 {cardinal}	    return CARDINAL; 
 .           cout << YYText() << " é um token inválido!\n"; 
+
 %%
 
 // nenhuma função auxiliar é necessária
