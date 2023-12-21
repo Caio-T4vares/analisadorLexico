@@ -13,9 +13,10 @@ class Parser
 private:
 	yyFlexLexer scanner;
 	int lookahead;
-	unordered_map<string, tag> id_table;
+	unordered_map<string, string> id_table;
+
 	void AddInTodosTokens(string token, string nomeId);
-	bool AddInIdTable(string s, tag t);
+	bool AddInIdTable(string s, string t);
 
 	deque<string> todosTokensList;
     deque<string> cardinalList;

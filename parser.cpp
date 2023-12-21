@@ -5,26 +5,30 @@ using std::endl;
 
 Parser::Parser()
 {
+//      SOME=1, ALL, VALUE, MIN, MAX, EXACTLY, THAT, NOT, AND,
+//   OR, Class, EquivalentTo, Individuals, SubClassOf, DisjointClasses,
+//   ID, PROP, NAME,CARDINAL,SYMBOL, TYPE
+//   }; 
     // insere as palavras-reservadas na tabela de id's
-	id_table["some"] = tag::SOME;
-	id_table["all"] = tag::ALL;
-	id_table["value"] = tag::VALUE;
-	id_table["min"] = tag::MIN;
-	id_table["max"] = tag::MAX;
-	id_table["exactly"] = tag::EXACTLY;
-	id_table["that"] = tag::THAT;
-	id_table["not"] = tag::NOT;
-	id_table["and"] = tag::AND;
-	id_table["or"] = tag::OR;
-	id_table["Class"] = tag::Class;
-	id_table["EquivalentTo"] = tag::EquivalentTo;
-	id_table["individuals"] = tag::Individuals;
-	id_table["SubClassOf"] = tag::SubClassOf;
-	id_table["DisjointClasses"] = tag::DisjointClasses;
+	id_table["some"] = "SOME";
+	id_table["all"] = "ALL";
+	id_table["value"] = "VALUE";
+	id_table["min"] = "MIN";
+	id_table["max"] = "MAX";
+	id_table["exactly"] = "EXACTLY";
+	id_table["that"] = "THAT";
+	id_table["not"] = "NOT";
+	id_table["and"] = "AND";
+	id_table["or"] = "OR";
+	id_table["Class:"] = "Class";
+	id_table["EquivalentTo"] = "EquivalentTo";
+	id_table["individuals"] = "Individuals";
+	id_table["SubClassOf"] = "SubClassOf";
+	id_table["DisjointClasses"] = "DisjointClasses";
 
 }
 
-bool Parser::AddInIdTable(string s, tag t){
+bool Parser::AddInIdTable(string s, string t){
                 auto pos = id_table.find(s);
 
                 // se o lexema não está na tabela
@@ -51,22 +55,22 @@ void Parser::Start()
             case ID: 
                 AddInTodosTokens("ID", s);
                 idQuant += 1;
-                if(AddInIdTable(s, tag::ID))idClassesList.push_back(s);
+                if(AddInIdTable(s, "ID"))idClassesList.push_back(s);
                 break;
             case PROP:
                 AddInTodosTokens("PROP", s);
                 propQuant += 1;
-                if(AddInIdTable(s, tag::PROP))propsList.push_back(s);
+                if(AddInIdTable(s, "PROP"))propsList.push_back(s);
                 break;
             case NAME:
                 AddInTodosTokens("NAME", s);
                 nameQuant += 1;
-                if(AddInIdTable(s, tag::NAME))namesList.push_back(s);
+                if(AddInIdTable(s, "NAME"))namesList.push_back(s);
                 break;
             case CARDINAL:
                 AddInTodosTokens("CARDINAL", s);
                 cardinalQuant += 1;
-                if(AddInIdTable(s, tag::CARDINAL))cardinalList.push_back(s);
+                if(AddInIdTable(s, "CARDINAL"))cardinalList.push_back(s);
                 break;
             case SOME: 
                 AddInTodosTokens("SOME", "some");
@@ -131,19 +135,19 @@ void Parser::Start()
             case SYMBOL:
                 AddInTodosTokens("SYMBOL", s);
                 symbolQuant += 1;
-                AddInIdTable(s, tag::SYMBOL);
+                AddInIdTable(s, "SYMBOL");
                 break;
             case TYPE:
                 AddInTodosTokens("TYPE", s);
                 typeQuant += 1;
-                if(AddInIdTable(s, tag::TYPE))typesList.push_back(s);
+                if(AddInIdTable(s, "TYPE"))typesList.push_back(s);
                 break;
         }
     }
-
-    cout << "          Resumo dos tokens do arquivo" << endl;
-    cout << "******************************************************" << endl;
-    cout << "         Quantidade total de tokens: " << todosTokensList.size() << endl; 
+    cout << "************************************************************************************************************" << endl;
+    cout << "---------------------------------Resumo dos tokens do arquivo-----------------------------------------------" << endl;
+    cout << "************************************************************************************************************" << endl;
+    cout << "                                 Quantidade total de tokens: " << todosTokensList.size() << endl; 
     cout << endl;
     cout << "Quantidades sem repetição: " << endl;
     cout << "      Cardinais: " << cardinalList.size() << "  |  Id's: " << idClassesList.size() << "  |  Props: " << propsList.size() << endl;
@@ -156,7 +160,7 @@ void Parser::Start()
     cout << "      That: " << thatQuant << "  |  Not: " << notTokenQuant << "  |  And: " << andTokenQuant << endl;
     cout << "      Or: " << orTokenQuant << "  |  Individuals: " << IndividualsQuant << "  |  Class: " << ClassQuant << endl;
     cout << "      EquivalentTo: " << EquivalentToQuant << "  |  SubClassOf: " << SubClassOfQuant << "  |  DisjointClasses: " << DisjointClassesQuant << endl;
-    cout << "******************************************************" << endl;
+    cout << "************************************************************************************************************" << endl;
     cout << "Nomes sem repetições:" << endl;
 
     cout << "   Cardinais: " << endl << "     ";
@@ -203,7 +207,18 @@ void Parser::Start()
      }
    }
    cout << endl << endl;
+   cout << "************************************************************************************************************" << endl;
+    cout <<"-----------------------------------------------HASH TABLE---------------------------------------------------" << endl;
+    cout << "************************************************************************************************************" << endl;
 
+    int xd = 1;
+    for (auto it = id_table.begin(); it != id_table.end(); ++it) {
+        std::cout << " *" << it->first << ": " << it->second << "*        ";
+        if(xd % 3 == 0){
+            cout << endl << endl;
+        }
+        xd++;
+  }
 //   for (int x = 0; x < todosTokensList.size(); x++){
 //     cout << todosTokensList[x] + " ";
 //     if((x+1) % 5 == 0){
