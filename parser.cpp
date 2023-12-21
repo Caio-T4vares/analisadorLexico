@@ -1,5 +1,7 @@
 #include "parser.h"
+#include <iomanip>
 #include <iostream>
+#include <sstream>
 using std::cout;
 using std::endl;
 
@@ -131,7 +133,7 @@ void Parser::Start()
                 SubClassOfQuant += 1;
                 break;
             case DisjointClasses:
-                AddInTodosTokens("DISJOINTCLASSES", "DisjointClasses");
+                AddInTodosTokens("DISJOINTCLASSES", "DisjointClasses:");
                 DisjointClassesQuant += 1;
                 break;
             case SYMBOL:
@@ -146,8 +148,7 @@ void Parser::Start()
                 break;
             case ONLY:
                 AddInTodosTokens("ONLY", s);
-                typeQuant += 1;
-                if(AddInIdTable(s, "ONLY"))typesList.push_back(s);
+                onlyQuant += 1;
         }
     }
     cout << "************************************************************************************************************" << endl;
@@ -166,6 +167,7 @@ void Parser::Start()
     cout << "      That: " << thatQuant << "  |  Not: " << notTokenQuant << "  |  And: " << andTokenQuant << endl;
     cout << "      Or: " << orTokenQuant << "  |  Individuals: " << IndividualsQuant << "  |  Class: " << ClassQuant << endl;
     cout << "      EquivalentTo: " << EquivalentToQuant << "  |  SubClassOf: " << SubClassOfQuant << "  |  DisjointClasses: " << DisjointClassesQuant << endl;
+    cout << "      only: " << onlyQuant << endl;
     cout << "************************************************************************************************************" << endl;
     cout << "Nomes sem repetições:" << endl;
 
@@ -219,9 +221,9 @@ void Parser::Start()
 
     int xd = 1;
     for (auto it = id_table.begin(); it != id_table.end(); ++it) {
-        std::cout << " *" << it->first << ": " << it->second << "*        ";
+        std::cout  << "                                            *" << it->first << ": " << it->second << "*" << endl;
         if(xd % 3 == 0){
-            cout << endl << endl;
+            cout << endl ;
         }
         xd++;
   }
