@@ -123,6 +123,9 @@ Class: MargheritaPizza
         MargheritaPizza1,
         MargheritaPizza2
 
+istest
+istestOf
+
 Class: SohoPizza
    
     SubClassOf: 
