@@ -30,7 +30,7 @@ numero {cardinal}+
 id [A-Z]{letra}*(_[A-Z]{letra}*)?
 prop (has([A-Z]{letra}*)*)|([a-z]{letra}*)|(is([A-Z]{letra}*)+Of)
 name [A-Z]{letra}*{numero}
-symbol [\[\]><">=""<="]
+relationalSymbol ">="|"<="|">"|"<"
 type [a-z]*:[a-z]*
 
 %%
@@ -56,9 +56,11 @@ type [a-z]*:[a-z]*
 ")" return FECHAPARENTESES;
 "{" return ABRECHAVE;
 "}" return FECHACHAVE;
+"[" return ABRECOLCHETE;
+"]" return FECHACOLCHETE;
 {prop} return PROP;
 {type} return TYPE;
-{symbol} return SYMBOL;
+{relationalSymbol} return RELATIONAL;
 {name} return NAME;
 {id}	return ID;  
 {numero}	return NUMERO; 

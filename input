@@ -1,6 +1,4 @@
-Class: CheesyPizza
-SubClassOf:
-hasBase some PizzaBase,
-hasCaloricContent some xsd:integer
-DisjointClasses:
-Pizza, PizzaBase, PizzaTopping
+Class: SpicyPizza
+EquivalentTo:
+Pizza
+and (hasTopping some (hasSpiciness value Hot))

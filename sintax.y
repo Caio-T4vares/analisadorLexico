@@ -10,8 +10,8 @@ void yyerror(const char *);
 
 %token SOME ALL VALUE MIN MAX EXACTLY THAT NOT AND 
   OR ONLY Class EquivalentTo Individuals SubClassOf DisjointClasses 
-  ID PROP NAME NUMERO SYMBOL TYPE VIRGULA ABREPARENTESES FECHAPARENTESES
-	ABRECHAVE FECHACHAVE
+  ID PROP NAME NUMERO RELATIONAL TYPE VIRGULA ABREPARENTESES FECHAPARENTESES
+	ABRECHAVE FECHACHAVE ABRECOLCHETE FECHACOLCHETE
 
 %%
 
@@ -31,20 +31,30 @@ axioma: subClasse |
 			 equivalencia |
 			 disjoint | 
 				;
-subClasse: SubClassOf subClassBody /*Tem que especificar o que é uma subClasse (começa com subClassOf)*/
+subClasse: SubClassOf subClassCorpo /*Tem que especificar o que é uma subClasse (começa com subClassOf)*/
 				;
-subClassBody: subClassBody PROP palavraChave idOrType divisor | 
+subClassCorpo: subClassCorpo PROP subclassDescricao divisor |  subClassCorpo ID divisor |
+				;
+subclassDescricao: palavraChave idOrType | palavraChave ABREPARENTESES ID palavraChave ID FECHAPARENTESES
 idOrType: ID | TYPE
+				;	
+listaIndividuos: Individuals listaIndividuosCorpo
 				;
-listaIndividuos: listaIndividuos Individuals listaIndividuosBody /*Tem que especificar o que é um individuo (começa com individuos))*/
+listaIndividuosCorpo : listaIndividuosCorpo NAME divisor |
 				;
-listaIndividuosBody : listaIndividuosBody NAME VIRGULA | NAME VIRGULA
-equivalencia: EquivalentTo equivalenciaBody /*Tem que especificar o que é o axioma de equivalencia (começa com EquivalentTo))*/
+equivalencia: EquivalentTo equivalenciaCorpo 
 				;
-equivalenciaBody: ID palavraChave ; /*Esse simbol tem que ser simbolos especificos*/
-disjoint: DisjointClasses disjointBody  /*Tem que especificar o que é o axioma de disjointClasses (começa com a keyword DisjointClasses))*/
+equivalenciaCorpo: ID palavraChave equivalenciaDescricao
+				; 
+equivalenciaDescricao: ABREPARENTESES PROP palavraChave propriedade FECHAPARENTESES 
+											| ABREPARENTESES PROP palavraChave propriedade FECHAPARENTESES 
 				;
-disjointBody: disjointBody ID divisor |
+propriedade: equivalenciaDescricao | ID | TYPE conditional
+conditional: ABRECOLCHETE RELATIONAL NUMERO FECHACOLCHETE 
+				;
+disjoint: DisjointClasses disjointCorpo 
+				;
+disjointCorpo: disjointCorpo ID divisor |
 divisor: VIRGULA |
 				;
 palavraChave : SOME | ALL | VALUE | MIN | MAX | EXACTLY | THAT | NOT | AND | OR | ONLY
