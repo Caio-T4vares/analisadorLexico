@@ -1,0 +1,6 @@
+Class: CheesyPizza
+SubClassOf:
+hasBase some PizzaBase,
+hasCaloricContent some xsd:integer
+DisjointClasses:
+Pizza, PizzaBase, PizzaTopping

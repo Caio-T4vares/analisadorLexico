@@ -10,7 +10,8 @@ void yyerror(const char *);
 
 %token SOME ALL VALUE MIN MAX EXACTLY THAT NOT AND 
   OR ONLY Class EquivalentTo Individuals SubClassOf DisjointClasses 
-  ID PROP NAME NUMERO SYMBOL TYPE
+  ID PROP NAME NUMERO SYMBOL TYPE VIRGULA ABREPARENTESES FECHAPARENTESES
+	ABRECHAVE FECHACHAVE
 
 %%
 
@@ -26,21 +27,26 @@ definicao: definicao axioma
 			;
 
 axioma: subClasse |
-				listaIndividuos |
-			  equivalencia |
-				disjoint
+			 listaIndividuos |
+			 equivalencia |
+			 disjoint | 
 				;
-subClasse: SubClassOf /*Tem que especificar o que é uma subClasse (começa com subClassOf)*/
+subClasse: SubClassOf subClassBody /*Tem que especificar o que é uma subClasse (começa com subClassOf)*/
 				;
-listaIndividuos: Individuals /*Tem que especificar o que é um individuo (começa com individuos))*/
+subClassBody: subClassBody PROP palavraChave idOrType divisor | 
+idOrType: ID | TYPE
 				;
-equivalencia: EquivalentTo /*Tem que especificar o que é o axioma de equivalencia (começa com EquivalentTo))*/
+listaIndividuos: listaIndividuos Individuals listaIndividuosBody /*Tem que especificar o que é um individuo (começa com individuos))*/
 				;
-disjoint: DisjointClasses /*Tem que especificar o que é o axioma de disjointClasses (começa com a keyword DisjointClasses))*/
+listaIndividuosBody : listaIndividuosBody NAME VIRGULA | NAME VIRGULA
+equivalencia: EquivalentTo equivalenciaBody /*Tem que especificar o que é o axioma de equivalencia (começa com EquivalentTo))*/
 				;
-
-
-				
+equivalenciaBody: ID palavraChave ; /*Esse simbol tem que ser simbolos especificos*/
+disjoint: DisjointClasses disjointBody  /*Tem que especificar o que é o axioma de disjointClasses (começa com a keyword DisjointClasses))*/
+				;
+disjointBody: disjointBody ID divisor |
+divisor: VIRGULA |
+				;
 palavraChave : SOME | ALL | VALUE | MIN | MAX | EXACTLY | THAT | NOT | AND | OR | ONLY
 				;
 %%

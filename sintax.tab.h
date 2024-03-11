@@ -75,7 +75,12 @@ extern int yydebug;
     NAME = 276,                    /* NAME  */
     NUMERO = 277,                  /* NUMERO  */
     SYMBOL = 278,                  /* SYMBOL  */
-    TYPE = 279                     /* TYPE  */
+    TYPE = 279,                    /* TYPE  */
+    VIRGULA = 280,                 /* VIRGULA  */
+    ABREPARENTESES = 281,          /* ABREPARENTESES  */
+    FECHAPARENTESES = 282,         /* FECHAPARENTESES  */
+    ABRECHAVE = 283,               /* ABRECHAVE  */
+    FECHACHAVE = 284               /* FECHACHAVE  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif

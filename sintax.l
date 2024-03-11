@@ -30,7 +30,7 @@ numero {cardinal}+
 id [A-Z]{letra}*(_[A-Z]{letra}*)?
 prop (has([A-Z]{letra}*)*)|([a-z]{letra}*)|(is([A-Z]{letra}*)+Of)
 name [A-Z]{letra}*{numero}
-symbol [\[\]\{\}\(\)><">=""<=",]
+symbol [\[\]><">=""<="]
 type [a-z]*:[a-z]*
 
 %%
@@ -51,6 +51,11 @@ type [a-z]*:[a-z]*
 "Individuals": return Individuals;
 "SubClassOf": return SubClassOf;
 "DisjointClasses": return DisjointClasses;
+"," return VIRGULA;
+"(" return ABREPARENTESES;
+")" return FECHAPARENTESES;
+"{" return ABRECHAVE;
+"}" return FECHACHAVE;
 {prop} return PROP;
 {type} return TYPE;
 {symbol} return SYMBOL;
