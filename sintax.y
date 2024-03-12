@@ -31,46 +31,56 @@ axioma: subClasse |
 			 equivalencia |
 			 disjoint | 
 				;
+
+
 subClasse: SubClassOf subClassCorpo /*Tem que especificar o que é uma subClasse (começa com subClassOf)*/
 				;
 subClassCorpo: subClassCorpo PROP subclassDescricao divisor |  subClassCorpo ID divisor |
 				;
 subclassDescricao: palavraChave idOrType | palavraChave ABREPARENTESES ID palavraChave ID FECHAPARENTESES
-idOrType: ID | TYPE
-				;	
+
+
 listaIndividuos: Individuals listaIndividuosCorpo
 				;
 listaIndividuosCorpo : listaIndividuosCorpo NAME divisor |
 				;
-equivalencia: EquivalentTo equivalenciaCorpo 
+
+
+equivalencia: EquivalentTo ID equivalenciaCorpo 
 				;
-equivalenciaCorpo: ID palavraChave equivalenciaDescricao |
-					ABRECHAVE conjuntoDeInstancias FECHACHAVE|
-					conjuntoDeClasses
+equivalenciaCorpo: equivalenciaCorpo palavraChave equivalenciaDescricao 
+					|ABRECHAVE conjuntoDeInstancias FECHACHAVE
+					|conjuntoDeClasses
 				; 
 
-equivalenciaDescricao: ABREPARENTESES PROP palavraChave propriedade FECHAPARENTESES 
-											| ABREPARENTESES PROP palavraChave propriedade FECHAPARENTESES 
+equivalenciaDescricao: ABREPARENTESES PROP palavraChave propriedade FECHAPARENTESES  
 				;
 
-conjuntoDeInstancias: conjuntoDeInstancias VIRGULA ID|
-						ID
-;
+conjuntoDeInstancias: conjuntoDeInstancias VIRGULA NAME|
+						NAME
+				;
 
 conjuntoDeClasses: conjuntoDeClasses OR ID|
 					ID
-;
+				;
 
 propriedade: equivalenciaDescricao | ID | TYPE conditional
 conditional: ABRECOLCHETE RELATIONAL NUMERO FECHACOLCHETE 
+						|
 				;
+
 disjoint: DisjointClasses disjointCorpo 
 				;
 disjointCorpo: disjointCorpo ID divisor |
+
+
 divisor: VIRGULA |
 				;
-palavraChave : SOME | ALL | VALUE | MIN | MAX | EXACTLY | THAT | NOT | AND | OR | ONLY
+palavraChave :  THAT | NOT | AND | OR
 				;
+quantificadores: SOME | MIN | MAX | ONLY | EXACTLY | ALL | VALUE
+idOrType: ID | TYPE
+				;	
 %%
 
 /* definido pelo analisador léxico */

@@ -1,4 +1,7 @@
-Class: SpicyPizza
-EquivalentTo:
-Pizza
-and (hasTopping some (hasSpiciness value Hot))
+Class: Customer
+
+    EquivalentTo:
+        Person
+         and (purchasedPizza some (hasSpiciness some (hasSpiciness some (hasSpiciness value Hot))))
+         and (hasPhone some xsd:string)
+         and (hasPhone not Pizza)
