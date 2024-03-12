@@ -44,11 +44,23 @@ listaIndividuosCorpo : listaIndividuosCorpo NAME divisor |
 				;
 equivalencia: EquivalentTo equivalenciaCorpo 
 				;
-equivalenciaCorpo: ID palavraChave equivalenciaDescricao
+equivalenciaCorpo: ID palavraChave equivalenciaDescricao |
+					ABRECHAVE conjuntoDeInstancias FECHACHAVE|
+					conjuntoDeClasses
 				; 
+
 equivalenciaDescricao: ABREPARENTESES PROP palavraChave propriedade FECHAPARENTESES 
 											| ABREPARENTESES PROP palavraChave propriedade FECHAPARENTESES 
 				;
+
+conjuntoDeInstancias: conjuntoDeInstancias VIRGULA ID|
+						ID
+;
+
+conjuntoDeClasses: conjuntoDeClasses OR ID|
+					ID
+;
+
 propriedade: equivalenciaDescricao | ID | TYPE conditional
 conditional: ABRECOLCHETE RELATIONAL NUMERO FECHACOLCHETE 
 				;
