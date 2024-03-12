@@ -23,29 +23,64 @@ classeDecl: Class ID classBody {cout << "A classe é válida!";}
 			;
 classBody: subclasse opcional
 					 | equivalencia opcional
-opcional: Individuals DisjointClasses 
-					| Individuals 
-					| DisjointClasses Individuals 
-					| DisjointClasses
+opcional: individuos disjuncao 
+					| individuos 
+					| disjuncao individuos 
+					| disjuncao
 					|
 			;
+
+/*SubClassOf*/
 subclasse: SubClassOf subclasseBody
 			;
-subclasseBody: subclasseBody ID divisor
-					 | subclasseBody PROP SOME idOrType divisor
-					 | subclasseBody PROP minMaxExactly NUMERO divisor
-					 | subclasseBody PROP VALUE NAME divisor
-					 |
+subclasseBody: subclasseBody subClasseProperty 
+					| subClasseProperty
 			;
-equivalencia:
+subClasseProperty: PROP SOME ID divisor
+					| PROP SOME TYPE divisor
+					| PROP ONLY onlyExpression divisor
+					| PROP minMaxExactly NUMERO optionalType divisor
+					| PROP VALUE NAME divisor
 			;
-divisor: VIRGULA | 
+optionalType: TYPE | 
+			;
+onlyExpression: ABREPARENTESES onlyExpressionClasses FECHAPARENTESES 
+					| ID
+			;
+onlyExpressionClasses: onlyExpressionClasses ID OR 
+					| onlyExpression ID
+			;
+/*EquivalentTo*/
+equivalencia: EquivalentTo ID conjuntoDescricoes
+			;
+conjuntoDescricoes: conjuntoDescricoes descricao 
+					| descricao
+			;
+descricao: AND ABREPARENTESES equivalenciaExpression FECHAPARENTESES
+			;
+equivalenciaExpression:	PROP SOME ID
+					| PROP SOME TYPE ABRECOLCHETE RELATIONAL NUMERO FECHACOLCHETE
+					| PROP SOME TYPE
+			;
+/*Individuals*/
+individuos: Individuals listaIndividios
+			;
+listaIndividios: listaIndividios NAME divisor 
+					| NAME divisor
+			;
+/*DisjointClasses*/
+disjuncao: DisjointClasses listaClasses
+			;
+listaClasses: listaClasses ID divisor 
+					| ID divisor
 			;
 palavraChave: OR | AND | THAT | ALL
 			;
 minMaxExactly: MIN | MAX | EXACTLY 
 			;
 idOrType: ID | TYPE
+			;
+divisor: VIRGULA |
 			;
 /*Após o value sempre vem instâncias*/
 %%

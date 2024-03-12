@@ -46,11 +46,11 @@ type [a-z]*:[a-z]*
 "and" return AND;
 "or" return OR;
 "only" return ONLY;
-"Class:": return Class;
-"EquivalentTo:": return EquivalentTo;
-"Individuals:": return Individuals;
-"SubClassOf:": return SubClassOf;
-"DisjointClasses:": return DisjointClasses;
+Class: return Class;
+EquivalentTo: return EquivalentTo;
+Individuals: return Individuals;
+SubClassOf: return SubClassOf;
+DisjointClasses: return DisjointClasses;
 "," return VIRGULA;
 "(" return ABREPARENTESES;
 ")" return FECHAPARENTESES;
