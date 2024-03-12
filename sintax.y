@@ -15,72 +15,39 @@ void yyerror(const char *);
 
 %%
 
-decl: decl classeDecl 
+programa: programa classeDecl 
 			| classeDecl
 			;
 
-classeDecl: Class ID definicao {cout << "A classe é válida!";}
+classeDecl: Class ID classBody {cout << "A classe é válida!";}
 			;
-
-definicao: definicao axioma 
-					| axioma
+classBody: subclasse opcional
+					 | equivalencia opcional
+opcional: Individuals DisjointClasses 
+					| Individuals 
+					| DisjointClasses Individuals 
+					| DisjointClasses
+					|
 			;
-
-axioma: subClasse |
-			 listaIndividuos |
-			 equivalencia |
-			 disjoint | 
-				;
-
-
-subClasse: SubClassOf subClassCorpo /*Tem que especificar o que é uma subClasse (começa com subClassOf)*/
-				;
-subClassCorpo: subClassCorpo PROP subclassDescricao divisor |  subClassCorpo ID divisor |
-				;
-subclassDescricao: palavraChave idOrType | palavraChave ABREPARENTESES ID palavraChave ID FECHAPARENTESES
-
-
-listaIndividuos: Individuals listaIndividuosCorpo
-				;
-listaIndividuosCorpo : listaIndividuosCorpo NAME divisor |
-				;
-
-
-equivalencia: EquivalentTo ID equivalenciaCorpo 
-				;
-equivalenciaCorpo: equivalenciaCorpo palavraChave equivalenciaDescricao 
-					|ABRECHAVE conjuntoDeInstancias FECHACHAVE
-					|conjuntoDeClasses
-				; 
-
-equivalenciaDescricao: ABREPARENTESES PROP palavraChave propriedade FECHAPARENTESES  
-				;
-
-conjuntoDeInstancias: conjuntoDeInstancias VIRGULA NAME|
-						NAME
-				;
-
-conjuntoDeClasses: conjuntoDeClasses OR ID|
-					ID
-				;
-
-propriedade: equivalenciaDescricao | ID | TYPE conditional
-conditional: ABRECOLCHETE RELATIONAL NUMERO FECHACOLCHETE 
-						|
-				;
-
-disjoint: DisjointClasses disjointCorpo 
-				;
-disjointCorpo: disjointCorpo ID divisor |
-
-
-divisor: VIRGULA |
-				;
-palavraChave :  THAT | NOT | AND | OR
-				;
-quantificadores: SOME | MIN | MAX | ONLY | EXACTLY | ALL | VALUE
+subclasse: SubClassOf subclasseBody
+			;
+subclasseBody: subclasseBody ID divisor
+					 | subclasseBody PROP SOME idOrType divisor
+					 | subclasseBody PROP minMaxExactly NUMERO divisor
+					 | subclasseBody PROP VALUE NAME divisor
+					 |
+			;
+equivalencia:
+			;
+divisor: VIRGULA | 
+			;
+palavraChave: OR | AND | THAT | ALL
+			;
+minMaxExactly: MIN | MAX | EXACTLY 
+			;
 idOrType: ID | TYPE
-				;	
+			;
+/*Após o value sempre vem instâncias*/
 %%
 
 /* definido pelo analisador léxico */
