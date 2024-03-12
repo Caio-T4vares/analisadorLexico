@@ -41,14 +41,8 @@ subClasseProperty: PROP SOME ID divisor
 					| PROP ONLY onlyExpression divisor
 					| PROP minMaxExactly NUMERO optionalType divisor
 					| PROP VALUE NAME divisor
-			;
-optionalType: TYPE | 
-			;
-onlyExpression: ABREPARENTESES onlyExpressionClasses FECHAPARENTESES 
-					| ID
-			;
-onlyExpressionClasses: onlyExpressionClasses ID OR 
-					| onlyExpression ID
+					| ID descricao divisor /*TO USANDO O DESCRICAO QUE EU CRIEI MAIS ABAIXO*/
+					| ID divisor
 			;
 /*EquivalentTo*/
 equivalencia: EquivalentTo ID conjuntoDescricoes
@@ -56,11 +50,18 @@ equivalencia: EquivalentTo ID conjuntoDescricoes
 conjuntoDescricoes: conjuntoDescricoes descricao 
 					| descricao
 			;
-descricao: AND ABREPARENTESES equivalenciaExpression FECHAPARENTESES
+descricao: AND descricaoExpression
+			;
+descricaoExpression: ABREPARENTESES equivalenciaExpression FECHAPARENTESES
 			;
 equivalenciaExpression:	PROP SOME ID
 					| PROP SOME TYPE ABRECOLCHETE RELATIONAL NUMERO FECHACOLCHETE
 					| PROP SOME TYPE
+					| PROP SOME descricaoExpression
+					| PROP VALUE NAME
+					| PROP minMaxExactly NUMERO optionalType
+					| PROP minMaxExactly NUMERO ID
+					| PROP ONLY onlyExpression
 			;
 /*Individuals*/
 individuos: Individuals listaIndividios
@@ -73,6 +74,14 @@ disjuncao: DisjointClasses listaClasses
 			;
 listaClasses: listaClasses ID divisor 
 					| ID divisor
+			;
+onlyExpression: ABREPARENTESES onlyExpressionClasses FECHAPARENTESES 
+					| ID
+			;
+onlyExpressionClasses: ID OR onlyExpressionClasses 
+					| ID
+			;
+optionalType: TYPE | 
 			;
 palavraChave: OR | AND | THAT | ALL
 			;
