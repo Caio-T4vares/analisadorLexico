@@ -170,5 +170,5 @@ Class: PizzaTopping
 Class: Spiciness
 
     EquivalentTo:
-        {Hot , Medium , Mild}
+        {Hot1 , Medium1 , Mild1}
     

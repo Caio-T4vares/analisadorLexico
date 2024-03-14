@@ -46,6 +46,8 @@ subClasseProperty: PROP SOME ID divisor
 			;
 /*EquivalentTo*/
 equivalencia: EquivalentTo ID conjuntoDescricoes
+					| EquivalentTo ABRECHAVE conjuntoDeInstancias FECHACHAVE
+					| EquivalentTo conjuntoDeClasses
 			;
 conjuntoDescricoes: conjuntoDescricoes descricao 
 					| descricao
@@ -62,6 +64,13 @@ equivalenciaExpression:	PROP SOME ID
 					| PROP minMaxExactly NUMERO optionalType
 					| PROP minMaxExactly NUMERO ID
 					| PROP ONLY onlyExpression
+			;
+conjuntoDeInstancias: conjuntoDeInstancias VIRGULA NAME|
+						NAME
+			;
+
+conjuntoDeClasses: conjuntoDeClasses OR ID|
+					ID
 			;
 /*Individuals*/
 individuos: Individuals listaIndividios
@@ -83,11 +92,7 @@ onlyExpressionClasses: ID OR onlyExpressionClasses
 			;
 optionalType: TYPE | 
 			;
-palavraChave: OR | AND | THAT | ALL
-			;
 minMaxExactly: MIN | MAX | EXACTLY 
-			;
-idOrType: ID | TYPE
 			;
 divisor: VIRGULA |
 			;

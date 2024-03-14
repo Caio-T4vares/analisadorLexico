@@ -154,18 +154,11 @@ Class: VegetarianPizza
          and (hasTopping only 
             (CheeseTopping or VegetableTopping))
 
-Class: PizzaBase
-
-    DisjointClasses:
-        Pizza, PizzaBase, PizzaTopping
-
-Class: PizzaTopping
-
-    DisjointClasses:
-        Pizza, PizzaBase, PizzaTopping
-
 Class: Spiciness
 
     EquivalentTo:
-        {Hot , Medium , Mild}
+        {Hot1 , Medium1 , Mild1}
+Class: Spiciness
+
+    EquivalentTo:  Hot or Mild or Medium
     
