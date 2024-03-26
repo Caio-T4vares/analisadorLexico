@@ -1,5 +1,4 @@
 %{
-/* analisador sintático para reconhecer frases em português */
 #include <iostream>
 using std::cout;
 
@@ -19,7 +18,7 @@ programa: programa classeDecl
 			| classeDecl
 			;
 
-classeDecl: Class ID classBody {cout << "A classe é válida!";}
+classeDecl: Class ID classBody {cout << "A classe é válida!" << std::endl;}
 			;
 classBody: subclasse opcional
 					 | equivalencia opcional
@@ -41,6 +40,7 @@ subClasseProperty: PROP SOME ID divisor
 					| PROP ONLY onlyExpression divisor
 					| PROP minMaxExactly NUMERO optionalType divisor
 					| PROP VALUE NAME divisor
+					| ABREPARENTESES equivalenciaExpression FECHAPARENTESES andOrNothing divisor
 					| ID descricao divisor /*TO USANDO O DESCRICAO QUE EU CRIEI MAIS ABAIXO*/
 					| ID divisor
 			;
@@ -54,7 +54,9 @@ conjuntoDescricoes: conjuntoDescricoes descricao
 			;
 descricao: AND descricaoExpression
 			;
-descricaoExpression: ABREPARENTESES equivalenciaExpression FECHAPARENTESES
+descricaoExpression: ABREPARENTESES expr FECHAPARENTESES
+			;
+expr:	descricaoExpression AND | equivalenciaExpression
 			;
 equivalenciaExpression:	PROP SOME ID
 					| PROP SOME TYPE ABRECOLCHETE RELATIONAL NUMERO FECHACOLCHETE
@@ -75,8 +77,8 @@ conjuntoDeClasses: conjuntoDeClasses OR ID|
 /*Individuals*/
 individuos: Individuals listaIndividios
 			;
-listaIndividios: listaIndividios NAME divisor 
-					| NAME divisor
+listaIndividios: NAME VIRGULA listaIndividios 
+					| NAME
 			;
 /*DisjointClasses*/
 disjuncao: DisjointClasses listaClasses
@@ -95,6 +97,8 @@ optionalType: TYPE |
 minMaxExactly: MIN | MAX | EXACTLY 
 			;
 divisor: VIRGULA |
+			;
+andOrNothing: AND | 
 			;
 /*Após o value sempre vem instâncias*/
 %%
