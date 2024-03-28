@@ -1,13 +1,19 @@
 %{
 #include <iostream>
+#include <set>
 using std::cout;
+using std::set;
+using std::string;
 
 int yylex(void);
 int yyparse(void);
 void yyerror(const char *);
 extern char *yytext;
-bool ehFechamento = false;
-bool ehAninhada = false;
+
+string classeEmAnalise;
+
+set<string> enumerada;
+
 %}
 
 %token SOME ALL VALUE MIN MAX EXACTLY THAT NOT AND 
@@ -21,10 +27,10 @@ programa: programa classeDecl
 			| classeDecl
 			;
 
-classeDecl: Class ID {cout << "Classe: " << yytext << " --> ";} classBody {cout << std::endl << std::endl;} 
+classeDecl: Class ID {cout << yytext << " --> ";} classBody {cout  << std::endl; } 
 			;
 classBody: subclasse opcional{cout  << "Primitiva";}
-					 | enumerado opcional{cout   << "Enumerada";}
+					 | enumerado opcional{cout   << "Enumerada"; enumerada.insert(classeEmAnalise);}
 					 | equivalencia opcional{cout  << "Definida";}
 					 | coberta opcional{cout  << "Coberta" ;}
 					 ;
@@ -48,7 +54,7 @@ subClasseProperty: PROP SOME ID divisor
 					| ABREPARENTESES equivalenciaExpression FECHAPARENTESES andOrNothing divisor
 					| ID descricao divisor /*TO USANDO O DESCRICAO QUE EU CRIEI MAIS ABAIXO*/
 					| ID divisor
-					|PROP ONLY onlyExpression{cout <<  "Fechamento e ";}
+					|PROP ONLY onlyExpression{cout <<  "Com fechamento, ";}
 			;
 
 					
@@ -73,7 +79,7 @@ descricaoExpression: ABREPARENTESES equivalenciaExpression FECHAPARENTESES
 equivalenciaExpression:	PROP SOME ID
 					| PROP SOME TYPE ABRECOLCHETE RELATIONAL NUMERO FECHACOLCHETE
 					| PROP SOME TYPE
-					| PROP SOME descricaoExpression {cout << "Aninhada e ";}
+					| PROP SOME descricaoExpression {cout << "Com aninhamento, ";}
 					| PROP VALUE NAME
 					| PROP minMaxExactly NUMERO optionalType
 					| PROP minMaxExactly NUMERO ID
@@ -136,6 +142,7 @@ int main(int argc, char ** argv)
 	}
 
 	yyparse();
+
 }
 
 void yyerror(const char * s)

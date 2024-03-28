@@ -158,7 +158,7 @@ Class: Spiciness
 
     EquivalentTo:
         {Hot1 , Medium1 , Mild1}
-Class: Spiciness
+Class: Spic
 
     EquivalentTo:  Hot or Mild or Medium
     
