@@ -5,6 +5,7 @@ using std::cout;
 int yylex(void);
 int yyparse(void);
 void yyerror(const char *);
+extern char *yytext;
 bool ehFechamento = false;
 bool ehAninhada = false;
 %}
@@ -20,7 +21,7 @@ programa: programa classeDecl
 			| classeDecl
 			;
 
-classeDecl: Class ID classBody {cout << std::endl<< std::endl;}
+classeDecl: Class ID {cout << "Classe: " << yytext << " --> ";} classBody {cout << std::endl << std::endl;} 
 			;
 classBody: subclasse opcional{cout  << "Primitiva";}
 					 | enumerado opcional{cout   << "Enumerada";}
