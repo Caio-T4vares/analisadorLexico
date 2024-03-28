@@ -1,0 +1,2 @@
+Class: Spiciness
+EquivalentTo: {Hot1 , Medium1 , Mild1}

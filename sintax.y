@@ -11,8 +11,15 @@ void yyerror(const char *);
 extern char *yytext;
 
 string classeEmAnalise;
-
 set<string> enumerada;
+int contadorClasses = 0;
+int contadorPrimitivas = 0;
+int contadorDefinidas = 0;
+int contadorCobertas = 0;
+int contadorAninhadas = 0;
+int contadorEnumeradas = 0;
+int contadorFechamentos = 0;
+
 
 %}
 
@@ -27,12 +34,12 @@ programa: programa classeDecl
 			| classeDecl
 			;
 
-classeDecl: Class ID {cout << yytext << " --> ";} classBody {cout  << std::endl; } 
+classeDecl: Class ID {cout << yytext << " --> ";} classBody {cout  << std::endl; contadorClasses++; } 
 			;
-classBody: subclasse opcional{cout  << "Primitiva";}
-					 | enumerado opcional{cout   << "Enumerada"; enumerada.insert(classeEmAnalise);}
-					 | equivalencia opcional{cout  << "Definida";}
-					 | coberta opcional{cout  << "Coberta" ;}
+classBody: subclasse opcional{cout  << "Primitiva"; contadorPrimitivas++;}
+					 | enumerado opcional{cout   << "Enumerada"; enumerada.insert(classeEmAnalise); contadorEnumeradas++;}
+					 | equivalencia opcional{cout  << "Definida"; contadorDefinidas++;}
+					 | coberta opcional{cout  << "Coberta" ; contadorCobertas++;}
 					 ;
 opcional: individuos disjuncao 
 					| individuos 
@@ -54,7 +61,7 @@ subClasseProperty: PROP SOME ID divisor
 					| ABREPARENTESES equivalenciaExpression FECHAPARENTESES andOrNothing divisor
 					| ID descricao divisor /*TO USANDO O DESCRICAO QUE EU CRIEI MAIS ABAIXO*/
 					| ID divisor
-					|PROP ONLY onlyExpression{cout <<  "Com fechamento, ";}
+					|PROP ONLY onlyExpression{cout <<  "Com fechamento, "; contadorFechamentos++;}
 			;
 
 					
@@ -79,7 +86,7 @@ descricaoExpression: ABREPARENTESES equivalenciaExpression FECHAPARENTESES
 equivalenciaExpression:	PROP SOME ID
 					| PROP SOME TYPE ABRECOLCHETE RELATIONAL NUMERO FECHACOLCHETE
 					| PROP SOME TYPE
-					| PROP SOME descricaoExpression {cout << "Com aninhamento, ";}
+					| PROP SOME descricaoExpression {cout << "Com aninhamento, "; contadorAninhadas++;}
 					| PROP VALUE NAME
 					| PROP minMaxExactly NUMERO optionalType
 					| PROP minMaxExactly NUMERO ID
@@ -142,6 +149,18 @@ int main(int argc, char ** argv)
 	}
 
 	yyparse();
+
+	// printando os resultados (Os contadores)
+	cout << std::endl << std::endl;
+	cout << "Contagem dos tipos de classes : " << std::endl;
+	cout << "Primitivas : " << contadorPrimitivas << std::endl;
+	cout << "Definidas : " << contadorDefinidas << std::endl;
+	cout << "Com aninhamento : " << contadorAninhadas << std::endl;
+	cout << "Com fechamentos : " << contadorFechamentos << std::endl;
+	cout << "Enumeradas : " << contadorEnumeradas << std::endl;
+	cout << "Cobertas : " << contadorCobertas << std::endl;
+	cout << "Total de classes diferentes : " << contadorClasses << std::endl;
+
 
 }
 
