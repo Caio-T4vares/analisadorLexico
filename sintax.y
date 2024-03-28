@@ -67,14 +67,12 @@ conjuntoDescricoes: conjuntoDescricoes descricao
 			;
 descricao: AND descricaoExpression
 			;
-descricaoExpression: ABREPARENTESES expr FECHAPARENTESES
-			;
-expr:	descricaoExpression AND | equivalenciaExpression
+descricaoExpression: ABREPARENTESES equivalenciaExpression FECHAPARENTESES
 			;
 equivalenciaExpression:	PROP SOME ID
 					| PROP SOME TYPE ABRECOLCHETE RELATIONAL NUMERO FECHACOLCHETE
 					| PROP SOME TYPE
-					| PROP SOME descricaoExpression
+					| PROP SOME descricaoExpression {cout << "Aninhada e ";}
 					| PROP VALUE NAME
 					| PROP minMaxExactly NUMERO optionalType
 					| PROP minMaxExactly NUMERO ID
