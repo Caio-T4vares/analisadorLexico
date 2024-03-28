@@ -4,3 +4,7 @@ Build/CMakeCache.txt
 Build/Makefile
 Build/lex.yy.cc
 Build/analisadorLexico
+lex.yy.c
+sintax.tab.c
+sintax.tab.h
+sintax

@@ -4,35 +4,23 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "cmake",
-            "type": "shell",
-            "command": "cmake",
-            "args": [ "../"],
-            "group": "build",
-            "options": {
-                "cwd": "${workspaceFolder}/Build",    
-            },
-            "problemMatcher": [ ],
-        },
-        {
-            "label": "make",
+            "label": "build",
             "type": "shell",
             "command": "make",
-            "args": [],
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
-            "options": {
-                "cwd": "${workspaceFolder}/Build",    
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "new",
+                "showReuseMessage": true
             },
-            "problemMatcher": ["$gcc"],
+            "problemMatcher": [
+                "$gcc"
+            ]
         }
-    ],
-    "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "new"
-    },
+    ]
 }
