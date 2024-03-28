@@ -1,8 +1,8 @@
-/* A Bison parser, made by GNU Bison 3.8.2.  */
+/* A Bison parser, made by GNU Bison 3.5.1.  */
 
 /* Bison interface for Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2021 Free Software Foundation,
+   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2020 Free Software Foundation,
    Inc.
 
    This program is free software: you can redistribute it and/or modify
@@ -16,7 +16,7 @@
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
 /* As a special exception, you may create a larger work that contains
    part or all of the Bison parser skeleton and distribute that work
@@ -31,9 +31,8 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-/* DO NOT RELY ON FEATURES THAT ARE NOT DOCUMENTED in the manual,
-   especially those whose name start with YY_ or yy_.  They are
-   private implementation details that can be changed or removed.  */
+/* Undocumented macros, especially those whose name start with YY_,
+   are private implementation details.  Do not rely on them.  */
 
 #ifndef YY_YY_SINTAX_TAB_H_INCLUDED
 # define YY_YY_SINTAX_TAB_H_INCLUDED
@@ -45,46 +44,41 @@
 extern int yydebug;
 #endif
 
-/* Token kinds.  */
+/* Token type.  */
 #ifndef YYTOKENTYPE
 # define YYTOKENTYPE
   enum yytokentype
   {
-    YYEMPTY = -2,
-    YYEOF = 0,                     /* "end of file"  */
-    YYerror = 256,                 /* error  */
-    YYUNDEF = 257,                 /* "invalid token"  */
-    SOME = 258,                    /* SOME  */
-    ALL = 259,                     /* ALL  */
-    VALUE = 260,                   /* VALUE  */
-    MIN = 261,                     /* MIN  */
-    MAX = 262,                     /* MAX  */
-    EXACTLY = 263,                 /* EXACTLY  */
-    THAT = 264,                    /* THAT  */
-    NOT = 265,                     /* NOT  */
-    AND = 266,                     /* AND  */
-    OR = 267,                      /* OR  */
-    ONLY = 268,                    /* ONLY  */
-    Class = 269,                   /* Class  */
-    EquivalentTo = 270,            /* EquivalentTo  */
-    Individuals = 271,             /* Individuals  */
-    SubClassOf = 272,              /* SubClassOf  */
-    DisjointClasses = 273,         /* DisjointClasses  */
-    ID = 274,                      /* ID  */
-    PROP = 275,                    /* PROP  */
-    NAME = 276,                    /* NAME  */
-    NUMERO = 277,                  /* NUMERO  */
-    RELATIONAL = 278,              /* RELATIONAL  */
-    TYPE = 279,                    /* TYPE  */
-    VIRGULA = 280,                 /* VIRGULA  */
-    ABREPARENTESES = 281,          /* ABREPARENTESES  */
-    FECHAPARENTESES = 282,         /* FECHAPARENTESES  */
-    ABRECHAVE = 283,               /* ABRECHAVE  */
-    FECHACHAVE = 284,              /* FECHACHAVE  */
-    ABRECOLCHETE = 285,            /* ABRECOLCHETE  */
-    FECHACOLCHETE = 286            /* FECHACOLCHETE  */
+    SOME = 258,
+    ALL = 259,
+    VALUE = 260,
+    MIN = 261,
+    MAX = 262,
+    EXACTLY = 263,
+    THAT = 264,
+    NOT = 265,
+    AND = 266,
+    OR = 267,
+    ONLY = 268,
+    Class = 269,
+    EquivalentTo = 270,
+    Individuals = 271,
+    SubClassOf = 272,
+    DisjointClasses = 273,
+    ID = 274,
+    PROP = 275,
+    NAME = 276,
+    NUMERO = 277,
+    RELATIONAL = 278,
+    TYPE = 279,
+    VIRGULA = 280,
+    ABREPARENTESES = 281,
+    FECHAPARENTESES = 282,
+    ABRECHAVE = 283,
+    FECHACHAVE = 284,
+    ABRECOLCHETE = 285,
+    FECHACOLCHETE = 286
   };
-  typedef enum yytokentype yytoken_kind_t;
 #endif
 
 /* Value type.  */
@@ -97,8 +91,6 @@ typedef int YYSTYPE;
 
 extern YYSTYPE yylval;
 
-
 int yyparse (void);
-
 
 #endif /* !YY_YY_SINTAX_TAB_H_INCLUDED  */

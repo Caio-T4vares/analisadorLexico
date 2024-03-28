@@ -5,6 +5,8 @@ using std::cout;
 int yylex(void);
 int yyparse(void);
 void yyerror(const char *);
+bool ehFechamento = false;
+bool ehAninhada = false;
 %}
 
 %token SOME ALL VALUE MIN MAX EXACTLY THAT NOT AND 
@@ -18,10 +20,13 @@ programa: programa classeDecl
 			| classeDecl
 			;
 
-classeDecl: Class ID classBody {cout << "A classe é válida!" << std::endl;}
+classeDecl: Class ID classBody {cout << std::endl<< std::endl;}
 			;
-classBody: subclasse opcional
-					 | equivalencia opcional
+classBody: subclasse opcional{cout  << "Primitiva";}
+					 | enumerado opcional{cout   << "Enumerada";}
+					 | equivalencia opcional{cout  << "Definida";}
+					 | coberta opcional{cout  << "Coberta" ;}
+					 ;
 opcional: individuos disjuncao 
 					| individuos 
 					| disjuncao individuos 
@@ -37,18 +42,26 @@ subclasseBody: subclasseBody subClasseProperty
 			;
 subClasseProperty: PROP SOME ID divisor
 					| PROP SOME TYPE divisor
-					| PROP ONLY onlyExpression divisor
 					| PROP minMaxExactly NUMERO optionalType divisor
 					| PROP VALUE NAME divisor
 					| ABREPARENTESES equivalenciaExpression FECHAPARENTESES andOrNothing divisor
 					| ID descricao divisor /*TO USANDO O DESCRICAO QUE EU CRIEI MAIS ABAIXO*/
 					| ID divisor
+					|PROP ONLY onlyExpression{cout <<  "Fechamento e ";}
 			;
+
+					
+
 /*EquivalentTo*/
 equivalencia: EquivalentTo ID conjuntoDescricoes
-					| EquivalentTo ABRECHAVE conjuntoDeInstancias FECHACHAVE
-					| EquivalentTo conjuntoDeClasses
 			;
+
+enumerado: EquivalentTo ABRECHAVE conjuntoDeInstancias FECHACHAVE 
+			;
+
+coberta: EquivalentTo conjuntoDeClasses
+		;
+
 conjuntoDescricoes: conjuntoDescricoes descricao 
 					| descricao
 			;
