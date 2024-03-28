@@ -15,10 +15,8 @@ Pacotes do vsCode:
     Yash - daohong
 
 Com tudo instalado é só compilar:
-1: Abra o arquivo "analisadorLexico.cpp".
-2: Com ele aberto vá na parte superior do vsCode e vá *Terminal* -> *run task...* -> escolha *cMake*. Isso criará os arquivos necessarios para compilação, no Build.
-3: Ainda no arquivo do ponto 1, aperte a sequencia: CTRL + SHIFT + B; ou vá em  *Terminal* -> *run task...* -> escolha *Make*. Isso vai criar o "executavel" em Build.
-4: Vá em *Terminal* -> "New terminal*.
-5: No terminal escreva: cd Build
-6: Dentro do Build execute a seguinte linha: ./analisadorLexico < ../test.txt
-7: Suba o terminal até ver: "Resumo dos tokens do arquivo" 
+1: Abra o arquivo "sintax.l".
+2:Aperte a sequencia: CTRL + SHIFT + B; ou vá em  *Terminal* -> *run task...* -> escolha *Make*. Isso vai criar o "executavel".
+3: Vá em *Terminal* -> "New terminal*.
+4: execute a seguinte linha: ./sintax input
+5: Os resultados devem aparecer no terminal 
