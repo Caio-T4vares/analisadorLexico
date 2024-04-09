@@ -37,13 +37,15 @@ programa: programa classeDecl
 classeDecl: Class ID {cout << yytext << " --> ";} classBody {cout  << std::endl; contadorClasses++; } 
 			;
 classBody: subclasse opcional{cout  << "Primitiva"; contadorPrimitivas++;}
+					 | equivalencia subclasse opcional{cout << "Primitiva, Definida"; contadorPrimitivas++; contadorDefinidas++;}
+					 | enumerado subclasse opcional{cout << "Enumerada, Definida"; contadorEnumeradas++; contadorDefinidas++;}
 					 | enumerado opcional{cout   << "Enumerada"; enumerada.insert(classeEmAnalise); contadorEnumeradas++;}
 					 | equivalencia opcional{cout  << "Definida"; contadorDefinidas++;}
 					 | coberta opcional{cout  << "Coberta" ; contadorCobertas++;}
+					 | coberta subclasse opcional{cout << "Coberta, Definida"; contadorCobertas++; contadorDefinidas++;}
 					 ;
-opcional: individuos disjuncao 
+opcional:  disjuncao individuos 
 					| individuos 
-					| disjuncao individuos 
 					| disjuncao
 					|
 			;
@@ -171,5 +173,5 @@ void yyerror(const char * s)
 	extern char * yytext;   
 
 	/* mensagem de erro exibe o símbolo que causou erro e o número da linha */
-    cout << "Erro sintático: símbolo \"" << yytext << "\" (linha " << yylineno << ")\n";
+    cout << "Erro: símbolo \"" << yytext << "\" (linha " << yylineno << ")\n";
 }
