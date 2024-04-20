@@ -26,10 +26,11 @@ delim	[ \t\n]
 brancos {delim}+
 letra	[A-Za-z]
 cardinal [0-9]
-numero {cardinal}+
+inteiro {cardinal}+
+pontoFlutuante ({inteiro}.{inteiro})
 id [A-Z]{letra}*(_[A-Z]{letra}*)?
 prop (has([A-Z]{letra}*)*)|([a-z]{letra}*)|(is([A-Z]{letra}*)+Of)
-name [A-Z]{letra}*{numero}
+name [A-Z]{letra}*{inteiro}
 relationalSymbol ">="|"<="|">"|"<"
 type [a-z]*:[a-z]*
 
@@ -63,7 +64,8 @@ DisjointClasses: return DisjointClasses;
 {relationalSymbol} return RELATIONAL;
 {name} return NAME;
 {id}	return ID;  
-{numero}	return NUMERO; 
+{inteiro}	return INTEIRO;
+{pontoFlutuante} return PONTOFLUTUANTE;
 .           {
           std::string defaultMsg = "Não reconhecido";
           throw(defaultMsg); 

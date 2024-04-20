@@ -1,6 +1,5 @@
 Class: ClassA
 SubClassOf:
-NamedPizza,
-hasTopping only (MozzarellaTopping or TomatoTopping),
-hasTopping some MozzarellaTopping,
-hasTopping some TomatoTopping
+NamedPizza
+Individuals: CheesyPizza1
+DisjointClasses: Pizza, PizzaBase, PizzaTopping
