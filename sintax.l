@@ -32,6 +32,7 @@ id [A-Z]{letra}*(_[A-Z]{letra}*)?
 prop (has([A-Z]{letra}*)*)|([a-z]{letra}*)|(is([A-Z]{letra}*)+Of)
 name [A-Z]{letra}*{inteiro}
 relationalSymbol ">="|"<="|">"|"<"
+typeInteger "xsd:integer"
 type [a-z]*:[a-z]*
 
 %%
@@ -60,7 +61,7 @@ DisjointClasses: return DisjointClasses;
 "[" return ABRECOLCHETE;
 "]" return FECHACOLCHETE;
 {prop} return PROP;
-"xsd:integer" return TYPEINTEGER;
+{typeInteger} return TYPEINTEGER;
 {type} return TYPE;
 {relationalSymbol} return RELATIONAL;
 {name} return NAME;
