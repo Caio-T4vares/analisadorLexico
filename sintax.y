@@ -30,6 +30,11 @@ void setProp(string prop){
 }
 void isPropDeclared(string nomeClasse){
 	yyerror("Pode chamar aqui?");
+}
+
+void ErroSemanticoMinMaxExactly(){
+	erroSemantico = true; 
+	yyerror("Erro semântico! É esperado um inteiro depois do Min/max/Exactly");
 };
 
 %}
@@ -79,7 +84,7 @@ subclasseBody: subclasseBody subClasseProperty
 subClasseProperty: PROP SOME ID divisor
 					| PROP SOME TYPE divisor
 					| PROP minMaxExactly INTEIRO optionalType divisor 
-					| PROP minMaxExactly optionalType divisor {erroSemantico = true; yyerror("Erro semântico! É esperado um inteiro depois do Min/max/Exactly"); }
+					| PROP minMaxExactly optionalType divisor {ErroSemanticoMinMaxExactly(); }
 					| PROP VALUE NAME divisor
 					| ABREPARENTESES equivalenciaExpression FECHAPARENTESES andOrNothing divisor
 					| ID descricao divisor
@@ -114,9 +119,9 @@ equivalenciaExpression:	PROP SOME ID
 					| PROP SOME descricaoExpression {cout << "Com aninhamento, "; contadorAninhadas++;}
 					| PROP VALUE NAME
 					| PROP minMaxExactly INTEIRO optionalType
-					| PROP minMaxExactly optionalType{erroSemantico = true; yyerror("Erro semântico! É esperado um inteiro depois do min/max/exactly"); }
+					| PROP minMaxExactly optionalType{ErroSemanticoMinMaxExactly(); }
 					| PROP minMaxExactly INTEIRO ID
-					| PROP minMaxExactly ID{erroSemantico = true; yyerror("Erro semântico! É esperado um inteiro depois do min/max/exactly"); }
+					| PROP minMaxExactly ID{ErroSemanticoMinMaxExactly(); }
 					| PROP ONLY onlyExpression
 			;
 conjuntoDeInstancias: conjuntoDeInstancias VIRGULA NAME|
