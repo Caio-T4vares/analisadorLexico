@@ -1,0 +1,11 @@
+Class: MargheritaPizza
+SubClassOf:
+NamedPizza,
+hasTopping some MozzarellaTopping,
+hasTopping some TomatoTopping,
+hasTopping only (MozzarellaTopping or TomatoTopping)
+DisjointClasses:
+AmericanaHotPizza, AmericanaPizza, SohoPizza
+Individuals:
+MargheritaPizza1,
+MargheritaPizza2
