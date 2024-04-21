@@ -1,0 +1,4 @@
+Class: Employee
+SubClassOf:
+Person,
+(ssn min xsd:string)

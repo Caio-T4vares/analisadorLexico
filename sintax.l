@@ -60,6 +60,7 @@ DisjointClasses: return DisjointClasses;
 "[" return ABRECOLCHETE;
 "]" return FECHACOLCHETE;
 {prop} return PROP;
+"xsd:integer" return TYPEINTEGER;
 {type} return TYPE;
 {relationalSymbol} return RELATIONAL;
 {name} return NAME;

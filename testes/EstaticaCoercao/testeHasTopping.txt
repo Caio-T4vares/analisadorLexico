@@ -1,0 +1,4 @@
+Class: InterestingPizza
+EquivalentTo:
+Pizza
+and (hasTopping min  PizzaTopping)
