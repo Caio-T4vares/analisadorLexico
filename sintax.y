@@ -24,14 +24,26 @@ int contadorFechamentos = 0;
 
 bool erroSemantico = false;
 bool erro = false;
-std::list<string> propsDeclaradas;
-void setProp(string prop){
-	propsDeclaradas.push_back(prop);
-}
-void isPropDeclared(string nomeClasse){
-	yyerror("Pode chamar aqui?");
-}
+std::list<string> props;
 
+void setProp(string prop){
+	props.push_back(prop);
+}
+void isPropDeclared(string nomeProp){
+	bool isDeclared = false;
+	for(string prop: props){
+		if(nomeProp == prop)
+			isDeclared = true;
+	}
+
+	if(!isDeclared){
+		erroSemantico = true;
+		yyerror("Erro semântico, as propriedades presentes no axioma de fechamento devem ser previamente declaradas!");
+	}
+}
+void limpar(){
+	props.clear();
+}
 void ErroSemanticoMinMaxExactly(){
 	erroSemantico = true; 
 	yyerror("Erro semântico! É esperado um inteiro depois do Min/max/Exactly");
@@ -56,7 +68,8 @@ programa: programa classeDecl
 			| classeDecl
 			;
 
-classeDecl: Class ID {cout << yytext << " --> ";} classBody {cout  << std::endl; contadorClasses++; } 
+classeDecl: Class ID {cout << yytext << " --> ";} classBody {cout  <<
+ std::endl; contadorClasses++; limpar();  } 
 			;
 classBody: subclasse opcional{cout  << "Primitiva"; contadorPrimitivas++;}
 					 | equivalencia subclasse opcional{cout << "Definida"; contadorDefinidas++;}
@@ -81,7 +94,7 @@ subclasse: SubClassOf subclasseBody
 subclasseBody: subclasseBody subClasseProperty 
 					| subClasseProperty
 			;
-subClasseProperty: PROP SOME ID divisor
+subClasseProperty: PROP SOME ID divisor {props.push_back($1);}
 					| PROP SOME TYPE divisor
 					| PROP minMaxExactly INTEIRO optionalType divisor 
 					| PROP minMaxExactly optionalType divisor {ErroSemanticoMinMaxExactly(); }
@@ -115,7 +128,7 @@ equivalenciaExpression:	PROP SOME ID
 					| PROP SOME TYPEINTEGER ABRECOLCHETE RELATIONAL INTEIRO FECHACOLCHETE 
 					| PROP SOME TYPEINTEGER ABRECOLCHETE RELATIONAL FECHACOLCHETE {erroSemantico = true; yyerror("Erro semântico! É esperado um inteiro depois do operador"); }
 					| PROP SOME TYPEINTEGER ABRECOLCHETE INTEIRO FECHACOLCHETE { erroSemantico = true; yyerror("Erro semântico! É esperado um operador antes do inteiro");}
-					| PROP SOME TYPE
+					| PROP SOME TYPE {props.push_back($1);}
 					| PROP SOME descricaoExpression {cout << "Com aninhamento, "; contadorAninhadas++;}
 					| PROP VALUE NAME
 					| PROP minMaxExactly INTEIRO optionalType
@@ -144,10 +157,10 @@ listaClasses: listaClasses ID divisor
 					| ID divisor
 			;
 onlyExpression: ABREPARENTESES onlyExpressionClasses FECHAPARENTESES 
-					| ID
+					| ID {isPropDeclared($1);}
 			;
-onlyExpressionClasses: ID OR onlyExpressionClasses 
-					| ID
+onlyExpressionClasses: ID OR onlyExpressionClasses {{isPropDeclared($1);}} 
+					| ID {isPropDeclared($1);}
 			;
 optionalType: TYPE | 
 			;
@@ -207,7 +220,6 @@ void yyerror(const char * s)
 	if(erroSemantico){
 		cout << s << " - linha " << yylineno << "\n";
 	}else{
-
 		cout << s << std::endl;
 	/* mensagem de erro exibe o símbolo que causou erro e o número da linha */
     cout << "Erro: símbolo \"" << yytext << "\" (linha " << yylineno << ")\n";
