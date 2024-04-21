@@ -26,9 +26,6 @@ bool erroSemantico = false;
 bool erro = false;
 std::list<string> props;
 
-void setProp(string prop){
-	props.push_back(prop);
-}
 void isPropDeclared(string nomeProp){
 	bool isDeclared = false;
 	for(string prop: props){
@@ -58,14 +55,15 @@ void ErroSemanticoMinMaxExactly(){
 
 %token<texto> SOME ALL VALUE MIN MAX EXACTLY THAT NOT AND 
   OR ONLY Class EquivalentTo Individuals SubClassOf DisjointClasses 
-  ID PROP NAME RELATIONAL TYPEINTEGER TYPE VIRGULA ABREPARENTESES FECHAPARENTESES
+  ID NAME RELATIONAL TYPEINTEGER TYPE VIRGULA ABREPARENTESES FECHAPARENTESES
 	ABRECHAVE FECHACHAVE ABRECOLCHETE FECHACOLCHETE
+%token<texto> PROP
 %token <inteiro> INTEIRO
 %token <pontoFlutuante> PONTOFLUTUANTE
 %%
 
 programa: programa classeDecl 
-			| classeDecl
+			| classeDecl	
 			;
 
 classeDecl: Class ID {cout << yytext << " --> ";} classBody {cout  <<
@@ -94,8 +92,8 @@ subclasse: SubClassOf subclasseBody
 subclasseBody: subclasseBody subClasseProperty 
 					| subClasseProperty
 			;
-subClasseProperty: PROP SOME ID divisor {props.push_back($1);}
-					| PROP SOME TYPE divisor
+subClasseProperty: PROP SOME ID divisor {props.push_back($1); cout << $1 << " : " << "Object Property" << std::endl;}
+					| PROP SOME TYPE divisor {cout << $1 << " : " << "Data Property" << std::endl;}
 					| PROP minMaxExactly INTEIRO optionalType divisor 
 					| PROP minMaxExactly optionalType divisor {ErroSemanticoMinMaxExactly(); }
 					| PROP VALUE NAME divisor
@@ -124,11 +122,11 @@ descricao: AND descricaoExpression
 			;
 descricaoExpression: ABREPARENTESES equivalenciaExpression FECHAPARENTESES
 			;
-equivalenciaExpression:	PROP SOME ID
+equivalenciaExpression:	PROP SOME ID {cout << $1 << " : " << "Object Property" << std::endl;props.push_back($1);}
 					| PROP SOME TYPEINTEGER ABRECOLCHETE RELATIONAL INTEIRO FECHACOLCHETE 
 					| PROP SOME TYPEINTEGER ABRECOLCHETE RELATIONAL FECHACOLCHETE {erroSemantico = true; yyerror("Erro semântico! É esperado um inteiro depois do operador"); }
 					| PROP SOME TYPEINTEGER ABRECOLCHETE INTEIRO FECHACOLCHETE { erroSemantico = true; yyerror("Erro semântico! É esperado um operador antes do inteiro");}
-					| PROP SOME TYPE {props.push_back($1);}
+					| PROP SOME TYPE { cout << $1 << " : " << "Data Property" << std::endl;}
 					| PROP SOME descricaoExpression {cout << "Com aninhamento, "; contadorAninhadas++;}
 					| PROP VALUE NAME
 					| PROP minMaxExactly INTEIRO optionalType
