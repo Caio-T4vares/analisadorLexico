@@ -3,6 +3,8 @@
 #include <set>
 #include <list>
 #include <unordered_map>
+#include <string>
+
 using std::cout;
 using std::set;
 using std::string;
@@ -25,6 +27,8 @@ int contadorFechamentos = 0;
 bool erroSemantico = false;
 bool erro = false;
 std::list<string> props;
+
+string textoTemporario;
 
 void isPropDeclared(string nomeProp){
 	bool isDeclared = false;
@@ -66,19 +70,20 @@ programa: programa classeDecl
 			| classeDecl	
 			;
 
-classeDecl: Class ID {cout << yytext << " --> ";} classBody {cout  <<
- std::endl; contadorClasses++; limpar();  } 
+classeDecl: Class ID {cout << textoTemporario; 
+					textoTemporario = yytext + string(" --> ");} 
+					classBody {textoTemporario += string("\n"); contadorClasses++; limpar();  } 
 			;
-classBody: subclasse opcional{cout  << "Primitiva"; contadorPrimitivas++;}
-					 | equivalencia subclasse opcional{cout << "Definida"; contadorDefinidas++;}
-					 | enumerado subclasse opcional{cout << "Definida enumerada"; contadorEnumeradas++; contadorDefinidas++;}
+classBody: subclasse opcional{textoTemporario += "Primitiva"; contadorPrimitivas++;}
+					 | equivalencia subclasse opcional{textoTemporario += "Definida"; contadorDefinidas++;}
+					 | enumerado subclasse opcional{textoTemporario += "Definida enumerada"; contadorEnumeradas++; contadorDefinidas++;}
 					 | equivalenciaTipos opcional
-					 | coberta subclasse opcional{cout << "Coberta, Definida"; contadorCobertas++; contadorDefinidas++;}
+					 | coberta subclasse opcional{textoTemporario += "Coberta, Definida"; contadorCobertas++; contadorDefinidas++;}
 					 | subclasse equivalenciaTipos opcional{erroSemantico = true;yyerror("Erro semântico! Ordem errada de operadores.");}
 					 ;
-equivalenciaTipos: enumerado{cout   << "Definida enumerada"; enumerada.insert(classeEmAnalise); contadorEnumeradas++; contadorDefinidas++;}
-					 | coberta{cout << "Definida coberta"; contadorCobertas++; contadorDefinidas++;}
-					 | equivalencia{cout  << "Definida"; contadorDefinidas++;}
+equivalenciaTipos: enumerado{textoTemporario   += "Definida enumerada"; enumerada.insert(classeEmAnalise); contadorEnumeradas++; contadorDefinidas++;}
+					 | coberta{textoTemporario += "Definida coberta"; contadorCobertas++; contadorDefinidas++;}
+					 | equivalencia{textoTemporario  += "Definida"; contadorDefinidas++;}
 opcional:  disjuncao individuos
 					| individuos disjuncao {erroSemantico = true;yyerror("Erro semântico! Ordem errada de operadores.");}
 					| individuos 
@@ -92,15 +97,15 @@ subclasse: SubClassOf subclasseBody
 subclasseBody: subclasseBody subClasseProperty 
 					| subClasseProperty
 			;
-subClasseProperty: PROP SOME ID divisor {props.push_back($1); cout << $1 << " : " << "Object Property" << std::endl;}
-					| PROP SOME TYPE divisor {cout << $1 << " : " << "Data Property" << std::endl;}
+subClasseProperty: PROP SOME ID divisor {props.push_back($1); textoTemporario += string($1) + string(" : ") + string("Object Property") + string("\n");}
+					| PROP SOME TYPE divisor {textoTemporario +=  string($1) + string(" : ") + string("Data Property") + string("\n");}
 					| PROP minMaxExactly INTEIRO optionalType divisor 
 					| PROP minMaxExactly optionalType divisor {ErroSemanticoMinMaxExactly(); }
 					| PROP VALUE NAME divisor
 					| ABREPARENTESES equivalenciaExpression FECHAPARENTESES andOrNothing divisor
 					| ID descricao divisor
 					| ID divisor
-					|PROP ONLY onlyExpression{cout <<  "Com fechamento, "; contadorFechamentos++;}
+					|PROP ONLY onlyExpression{textoTemporario +=  string("Com fechamento, "); contadorFechamentos++;}
 			;
 
 					
@@ -122,12 +127,12 @@ descricao: AND descricaoExpression
 			;
 descricaoExpression: ABREPARENTESES equivalenciaExpression FECHAPARENTESES
 			;
-equivalenciaExpression:	PROP SOME ID {cout << $1 << " : " << "Object Property" << std::endl;props.push_back($1);}
+equivalenciaExpression:	PROP SOME ID {textoTemporario += string($1) + string(" : ") + string("Object Property") + string("\n");props.push_back($1);}
 					| PROP SOME TYPEINTEGER ABRECOLCHETE RELATIONAL INTEIRO FECHACOLCHETE 
 					| PROP SOME TYPEINTEGER ABRECOLCHETE RELATIONAL FECHACOLCHETE {erroSemantico = true; yyerror("Erro semântico! É esperado um inteiro depois do operador"); }
 					| PROP SOME TYPEINTEGER ABRECOLCHETE INTEIRO FECHACOLCHETE { erroSemantico = true; yyerror("Erro semântico! É esperado um operador antes do inteiro");}
-					| PROP SOME TYPE { cout << $1 << " : " << "Data Property" << std::endl;}
-					| PROP SOME descricaoExpression {cout << "Com aninhamento, "; contadorAninhadas++;}
+					| PROP SOME TYPE { textoTemporario += string($1) + string(" : ") + string("Data Property") + string("\n");}
+					| PROP SOME descricaoExpression {textoTemporario += string("Com aninhamento, "); contadorAninhadas++;}
 					| PROP VALUE NAME
 					| PROP minMaxExactly INTEIRO optionalType
 					| PROP minMaxExactly optionalType{ErroSemanticoMinMaxExactly(); }
@@ -193,6 +198,7 @@ int main(int argc, char ** argv)
 
 	yyparse();
 	if(!erro){
+		cout << textoTemporario;
 		// printando os resultados (Os contadores)
 		cout << std::endl << std::endl;
 		cout << "Contagem dos tipos de classes : " << std::endl;
