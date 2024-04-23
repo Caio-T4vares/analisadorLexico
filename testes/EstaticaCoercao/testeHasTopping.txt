@@ -1,9 +1,0 @@
-Class: InterestingPizza
-EquivalentTo:
-Pizza
-and (hasTopping min 3 PizzaTopping)
-
-Class: Employee
-SubClassOf:
-Person,
-(ssn min xsd:string)

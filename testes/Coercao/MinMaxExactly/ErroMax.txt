@@ -1,0 +1,9 @@
+Class: InterestingPizza
+    EquivalentTo:
+        Pizza
+        and (hasTopping max PizzaTopping)
+
+Class: Employee
+    SubClassOf:
+        Person,
+        (ssn max 2 xsd:string)

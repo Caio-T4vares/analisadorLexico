@@ -1,0 +1,54 @@
+Class: CertificationAct
+ 
+    EquivalentTo: 
+        Relator
+         and (hasPhone some xsd:string)
+         and (mediates min 1 CertificationBody)
+         and (mediates min 1 Evaluated)
+         and (historicallyDependsOn min 1 Certification)
+         and (historicallyDependsOn exactly 1 EvaluationReport)
+
+    SubClassOf:
+        IntermediaryParticipant,
+        emitsReport some EvaluationReport,
+        mediates some EvaluationAct
+
+    DisjointClasses:
+        Pizza, PizzaBase, PizzaTopping
+
+    Individuals:
+        CustomPizza1,
+        CustomPizza2
+
+Class: MargheritaPizza
+    SubClassOf:
+        NamedPizza,
+        hasTopping some MozzarellaTopping,
+        hasTopping some TomatoTopping,
+        hasTopping only (MozzarellaTopping or TomatoTopping)
+    DisjointClasses:
+        AmericanaHotPizza, AmericanaPizza, SohoPizza
+    Individuals:
+        MargheritaPizza1,
+        MargheritaPizza2
+
+Class: InterestingPizza
+    EquivalentTo:
+        Pizza
+        and (hasTopping min 3 PizzaTopping)
+
+Class: Employee
+    SubClassOf:
+        Person,
+        (ssn max 2 xsd:string)
+
+Class: Boss
+    SubClassOf:
+        Person,
+        (ssn exactly 1 xsd:string)
+
+Class: LowCaloriePizza
+
+    EquivalentTo: 
+        Pizza
+         and (hasCaloricContent some xsd:integer[<200])

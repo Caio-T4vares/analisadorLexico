@@ -1,0 +1,5 @@
+Class: EvaluationFacility
+    SubClassOf:
+        IntermediaryParticipant,
+        mediates some EvaluationAct,
+        hasPhone some xsd:string

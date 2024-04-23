@@ -1,5 +1,0 @@
-Class: EvaluationFacility
-SubClassOf:
-IntermediaryParticipant,
-emitsReport some EvaluationReport,
-mediates some EvaluationAct

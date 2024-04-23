@@ -57,8 +57,10 @@ void limpar(){
 }
 void printar(){
 	if(!erroSemantico){
-		cout << textoTemporario << tiposClasse << std::endl;
-		cout << "\t" << "Propriedades da classe e seus tipos:" << "\n";
+		cout << "\n" << textoTemporario << tiposClasse << std::endl;
+		if(propsPerClass.size() > 0){
+			cout << "\t" << "Propriedades da classe e seus tipos:" << "\n";
+		}
 		for (const auto& pair : propsPerClass) {
         std::cout << "\t\t" << pair.first << " --> " << pair.second << std::endl;
     }
@@ -130,7 +132,7 @@ subClasseProperty: PROP SOME identificador divisor {propsPerClass[propEmAnalise]
 					| ID divisor
 					| PROP ONLY onlyExpression{tiposClasse +=  string("Com fechamento, "); contadorFechamentos++;}
 					| ABREPARENTESES PROP minMaxExactly INTEIRO TYPE FECHAPARENTESES divisor
-					| ABREPARENTESES PROP minMaxExactly TYPE FECHAPARENTESES divisor{ erroSemantico = true; yyerror("Erro semântico! É esperado um operador antes do inteiro");}
+					| ABREPARENTESES PROP minMaxExactly TYPE FECHAPARENTESES divisor{ ErroSemanticoMinMaxExactly();}
 			;
 
 
