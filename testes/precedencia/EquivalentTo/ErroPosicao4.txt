@@ -6,7 +6,7 @@ Class: CertificationAct
         mediates some EvaluationAct
 
     DisjointClasses:
-        Pizza, PizzaBase, PizzaTopping
+        Certified, CertificationName, CertificationDate
 
     EquivalentTo: 
             Relator
@@ -17,5 +17,5 @@ Class: CertificationAct
             and (historicallyDependsOn exactly 1 EvaluationReport)
 
     Individuals:
-        CustomPizza1,
-        CustomPizza2
+        Certified1,
+        Certified2
