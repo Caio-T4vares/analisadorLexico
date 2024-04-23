@@ -2,4 +2,4 @@ Class: Customer
     EquivalentTo:
         Person
             and (purchasedPizza some Pizza)
-            and (hasGas some xsd:string)      
+            and (hasPhone some xsd:string)      

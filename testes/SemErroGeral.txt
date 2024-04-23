@@ -1,17 +1,15 @@
-Class: CertificationAct
+Class: MozzarellaPizza
  
     EquivalentTo: 
         Relator
-         and (hasPhone some xsd:string)
-         and (mediates min 1 CertificationBody)
-         and (mediates min 1 Evaluated)
-         and (historicallyDependsOn min 1 Certification)
-         and (historicallyDependsOn exactly 1 EvaluationReport)
+         and (hasPrice some xsd:float)
+         and (hasTopping some MozzarellaTopping)
 
     SubClassOf:
-        IntermediaryParticipant,
-        emitsReport some EvaluationReport,
-        mediates some EvaluationAct
+        PizzaClass,
+        hasTopping some MozzarellaTopping,
+        hasTopping some TomatoTopping,
+        hasTopping only (MozzarellaTopping or TomatoTopping) 
 
     DisjointClasses:
         Pizza, PizzaBase, PizzaTopping
