@@ -58,8 +58,9 @@ void limpar(){
 void printar(){
 	if(!erroSemantico){
 		cout << textoTemporario << tiposClasse << std::endl;
+		cout << "\t" << "Propriedades da classe e seus tipos:" << "\n";
 		for (const auto& pair : propsPerClass) {
-        std::cout << "Prop: " << pair.first << ", Tipo: " << pair.second << std::endl;
+        std::cout << "\t\t" << pair.first << " --> " << pair.second << std::endl;
     }
 		limpar();
 	}
@@ -93,14 +94,23 @@ classBody: subclasse opcional{tiposClasse += "Primitiva"; contadorPrimitivas++;}
 					 | equivalenciaTipos opcional
 					 | coberta subclasse opcional{tiposClasse += "Coberta, Definida"; contadorCobertas++; contadorDefinidas++;}
 					 | subclasse equivalenciaTipos opcional{erroSemantico = true;yyerror("Erro semântico! SubclassOf antes de EquivalentTo. ");}
+					 |opcional {erroSemantico = true;yyerror("Erro semântico! Opcionais não devem aparecer primeiro. ");}
 					 ;
 equivalenciaTipos: enumerado{tiposClasse += "Definida enumerada"; enumerada.insert(classeEmAnalise); contadorEnumeradas++; contadorDefinidas++;}
 					 | coberta{tiposClasse += "Definida coberta"; contadorCobertas++; contadorDefinidas++;}
 					 | equivalencia{tiposClasse  += "Definida"; contadorDefinidas++;}
 opcional:  disjuncao individuos
-					| individuos disjuncao {erroSemantico = true;yyerror("Erro semântico! Individuals antes de DisjointClasses. ");}
-					| individuos 
-					| disjuncao
+					|disjuncao equivalenciaTipos individuos {erroSemantico = true;yyerror("Erro semântico! EquivaletTo não deve aparecer depois das opcionais ");}
+					|disjuncao equivalenciaTipos {erroSemantico = true;yyerror("Erro semântico! EquivaletTo não deve aparecer depois das opcionais ");}
+					|disjuncao individuos equivalenciaTipos {erroSemantico = true;yyerror("Erro semântico! EquivaletTo não deve aparecer depois das opcionais ");}
+					|individuos equivalenciaTipos {erroSemantico = true;yyerror("Erro semântico! EquivaletTo não deve aparecer depois das opcionais ");}
+					|disjuncao subclasse individuos {erroSemantico = true;yyerror("Erro semântico! subClasseOf não deve aparecer depois das opcionais ");}
+					|disjuncao subclasse {erroSemantico = true;yyerror("Erro semântico! subClasseOf não deve aparecer depois das opcionais ");}
+					|disjuncao individuos subclasse {erroSemantico = true;yyerror("Erro semântico! subClasseOf não deve aparecer depois das opcionais ");}
+					|individuos subclasse {erroSemantico = true;yyerror("Erro semântico! subClasseOf não deve aparecer depois das opcionais ");}
+					|individuos disjuncao {erroSemantico = true;yyerror("Erro semântico! Individuals antes de DisjointClasses. ");}
+					|individuos 
+					|disjuncao
 					|
 			;
 
@@ -122,6 +132,8 @@ subClasseProperty: PROP SOME identificador divisor {propsPerClass[propEmAnalise]
 					| ABREPARENTESES PROP minMaxExactly INTEIRO TYPE FECHAPARENTESES divisor
 					| ABREPARENTESES PROP minMaxExactly TYPE FECHAPARENTESES divisor{ erroSemantico = true; yyerror("Erro semântico! É esperado um operador antes do inteiro");}
 			;
+
+
 identificador: ID {props.push_back(yytext);}
 /*EquivalentTo*/
 equivalencia: EquivalentTo ID conjuntoDescricoes
@@ -142,6 +154,7 @@ descricaoExpression: ABREPARENTESES PROP{propEmAnalise = yytext;} equivalenciaEx
 			;
 equivalenciaExpression:	SOME identificador {;propsPerClass[propEmAnalise] = string("Object Property");}
 					| SOME TYPEINTEGER ABRECOLCHETE RELATIONAL INTEIRO FECHACOLCHETE {propsPerClass[propEmAnalise] = string("Data Property");}
+					| SOME TYPEINTEGER ABRECOLCHETE FECHACOLCHETE {erroSemantico = true; yyerror("Erro semântico! É esperado um operador relacional com um inteiro dentro dos colchetes");}
 					| SOME TYPEINTEGER ABRECOLCHETE RELATIONAL FECHACOLCHETE {erroSemantico = true; yyerror("Erro semântico! É esperado um inteiro depois do operador");}
 					| SOME TYPEINTEGER ABRECOLCHETE INTEIRO FECHACOLCHETE { erroSemantico = true; yyerror("Erro semântico! É esperado um operador antes do inteiro");}
 					| SOME TYPE {propsPerClass[propEmAnalise] = string("Data Property");}
@@ -235,7 +248,7 @@ void yyerror(const char * s)
 	extern int yylineno;    
 	extern char * yytext;   
 	if(erroSemantico){
-		cout << s << "Classe com erro : " << classeEmAnalise << "\n";
+		cout << s << "na linha: " << yylineno <<"\n";
 	}else{
 		/* mensagem de erro exibe o símbolo que causou erro e o número da linha */
     cout << "Erro: símbolo \"" << yytext << "\" (linha " << yylineno << ")\n";

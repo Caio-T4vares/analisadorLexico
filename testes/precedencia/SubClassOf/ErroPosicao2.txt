@@ -1,0 +1,21 @@
+Class: CertificationAct
+ 
+    SubClassOf:
+        IntermediaryParticipant,
+        emitsReport some EvaluationReport,
+        mediates some EvaluationAct
+
+    EquivalentTo: 
+            Relator
+            and (hasPhone some xsd:string)
+            and (mediates min 1 CertificationBody)
+            and (mediates min 1 Evaluated)
+            and (historicallyDependsOn min 1 Certification)
+            and (historicallyDependsOn exactly 1 EvaluationReport)
+
+    DisjointClasses:
+        Pizza, PizzaBase, PizzaTopping
+
+    Individuals:
+        CustomPizza1,
+        CustomPizza2
