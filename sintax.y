@@ -102,10 +102,10 @@ equivalenciaTipos: enumerado{tiposClasse += "Definida enumerada"; enumerada.inse
 					 | coberta{tiposClasse += "Definida coberta"; contadorCobertas++; contadorDefinidas++;}
 					 | equivalencia{tiposClasse  += "Definida"; contadorDefinidas++;}
 opcional:  disjuncao individuos
-					|disjuncao equivalenciaTipos individuos {erroSemantico = true;yyerror("Erro semântico! EquivaletTo não deve aparecer depois das opcionais ");}
-					|disjuncao equivalenciaTipos {erroSemantico = true;yyerror("Erro semântico! EquivaletTo não deve aparecer depois das opcionais ");}
-					|disjuncao individuos equivalenciaTipos {erroSemantico = true;yyerror("Erro semântico! EquivaletTo não deve aparecer depois das opcionais ");}
-					|individuos equivalenciaTipos {erroSemantico = true;yyerror("Erro semântico! EquivaletTo não deve aparecer depois das opcionais ");}
+					|disjuncao equivalenciaTipos individuos {erroSemantico = true;yyerror("Erro semântico! EquivalentTo não deve aparecer depois das opcionais ");}
+					|disjuncao equivalenciaTipos {erroSemantico = true;yyerror("Erro semântico! EquivalentTo não deve aparecer depois das opcionais ");}
+					|disjuncao individuos equivalenciaTipos {erroSemantico = true;yyerror("Erro semântico! EquivalentTo não deve aparecer depois das opcionais ");}
+					|individuos equivalenciaTipos {erroSemantico = true;yyerror("Erro semântico! EquivalentTo não deve aparecer depois das opcionais ");}
 					|disjuncao subclasse individuos {erroSemantico = true;yyerror("Erro semântico! subClasseOf não deve aparecer depois das opcionais ");}
 					|disjuncao subclasse {erroSemantico = true;yyerror("Erro semântico! subClasseOf não deve aparecer depois das opcionais ");}
 					|disjuncao individuos subclasse {erroSemantico = true;yyerror("Erro semântico! subClasseOf não deve aparecer depois das opcionais ");}
@@ -130,7 +130,7 @@ subClasseProperty: PROP SOME identificador divisor {propsPerClass[propEmAnalise]
 					| ABREPARENTESES equivalenciaExpression FECHAPARENTESES andOrNothing divisor
 					| ID descricao divisor
 					| ID divisor
-					| PROP ONLY onlyExpression{tiposClasse +=  string("Com fechamento, "); contadorFechamentos++;}
+					| PROP ONLY onlyExpression divisor{tiposClasse +=  string("Com fechamento, "); contadorFechamentos++;}
 					| ABREPARENTESES PROP minMaxExactly INTEIRO TYPE FECHAPARENTESES divisor
 					| ABREPARENTESES PROP minMaxExactly TYPE FECHAPARENTESES divisor{ ErroSemanticoMinMaxExactly();}
 			;
@@ -250,9 +250,9 @@ void yyerror(const char * s)
 	extern int yylineno;    
 	extern char * yytext;   
 	if(erroSemantico){
-		cout << s << "na linha: " << yylineno <<"\n";
+		cout << s << " na linha: " << yylineno <<"\n";
 	}else{
 		/* mensagem de erro exibe o símbolo que causou erro e o número da linha */
-    cout << "Erro: símbolo \"" << yytext << "\" (linha " << yylineno << ")\n";
+    cout << "Erro Sintático: símbolo \"" << yytext << "\" (linha " << yylineno << ")\n";
 	}
 }

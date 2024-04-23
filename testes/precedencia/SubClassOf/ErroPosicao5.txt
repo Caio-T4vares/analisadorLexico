@@ -9,11 +9,11 @@ Class: CertificationAct
             and (historicallyDependsOn exactly 1 EvaluationReport)
 
     DisjointClasses:
-        Pizza, PizzaBase, PizzaTopping
+       Certified, CertificationName, CertificationDate
 
     Individuals:
-        CustomPizza1,
-        CustomPizza2
+        Certified1,
+        Certified2
 
     SubClassOf:
         IntermediaryParticipant,

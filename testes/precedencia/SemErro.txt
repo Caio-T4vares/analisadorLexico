@@ -14,8 +14,8 @@ Class: CertificationAct
         mediates some EvaluationAct
 
     DisjointClasses:
-        Pizza, PizzaBase, PizzaTopping
+        Certified, CertificationName, CertificationDate
 
     Individuals:
-        CustomPizza1,
-        CustomPizza2
+        Certified1,
+        Certified/2
