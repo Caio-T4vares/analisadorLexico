@@ -1,0 +1,17 @@
+Class: MargheritaPizza
+    SubClassOf:
+        NamedPizza,
+        hasTopping some MozzarellaTopping,
+        hasTopping some TomatoTopping,
+        hasTopping only (MozzarellaTopping or TomatoTopping or AlohaOi)
+    DisjointClasses:
+        AmericanaHotPizza, AmericanaPizza, SohoPizza
+    Individuals:
+        MargheritaPizza1,
+        MargheritaPizza2
+
+Class: Customer
+    EquivalentTo:
+        Person
+        and (purchasedPizza some Pizza)
+        and (hasPhone some xsd:string)
