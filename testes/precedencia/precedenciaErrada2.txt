@@ -1,5 +1,0 @@
-Class: ClassA
-SubClassOf:
-NamedPizza
-Individuals: CheesyPizza1
-DisjointClasses: Pizza, PizzaBase, PizzaTopping

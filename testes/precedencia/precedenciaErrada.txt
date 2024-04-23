@@ -1,5 +1,0 @@
-Class: Evaluated
-SubClassOf:
-FunctionalComplex
-EquivalentTo:
-BrokerServiceProvider or Connector or CoreParticipant

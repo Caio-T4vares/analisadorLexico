@@ -14,7 +14,6 @@ int yyparse(void);
 void yyerror(const char *);
 extern char *yytext;
 
-string classeEmAnalise;
 set<string> enumerada;
 int contadorClasses = 0;
 int contadorPrimitivas = 0;
@@ -28,7 +27,11 @@ bool erroSemantico = false;
 bool erro = false;
 std::list<string> props;
 
+string classeEmAnalise;
+string tiposClasse;
 string textoTemporario;
+string propEmAnalise;
+std::unordered_map<string,string> propsPerClass;
 
 void isPropDeclared(string nomeProp){
 	bool isDeclared = false;
@@ -44,6 +47,22 @@ void isPropDeclared(string nomeProp){
 }
 void limpar(){
 	props.clear();
+	propsPerClass.clear();
+	tiposClasse = "";
+	classeEmAnalise = "";
+	propEmAnalise = "";
+	textoTemporario = "";
+	classeEmAnalise = "";
+	erroSemantico = false;
+}
+void printar(){
+	if(!erroSemantico){
+		cout << textoTemporario << tiposClasse << std::endl;
+		for (const auto& pair : propsPerClass) {
+        std::cout << "Prop: " << pair.first << ", Tipo: " << pair.second << std::endl;
+    }
+		limpar();
+	}
 }
 void ErroSemanticoMinMaxExactly(){
 	erroSemantico = true; 
@@ -51,41 +70,35 @@ void ErroSemanticoMinMaxExactly(){
 };
 
 %}
-%union{
-	char texto[40];
-	int inteiro;
-	float pontoFlutuante;
-}
 
-%token<texto> SOME ALL VALUE MIN MAX EXACTLY THAT NOT AND 
+%token SOME ALL VALUE MIN MAX EXACTLY THAT NOT AND 
   OR ONLY Class EquivalentTo Individuals SubClassOf DisjointClasses 
-  ID NAME RELATIONAL TYPEINTEGER TYPE VIRGULA ABREPARENTESES FECHAPARENTESES
+  NAME RELATIONAL TYPEINTEGER TYPE VIRGULA ABREPARENTESES FECHAPARENTESES
 	ABRECHAVE FECHACHAVE ABRECOLCHETE FECHACOLCHETE
-%token<texto> PROP
-%token <inteiro> INTEIRO
-%token <pontoFlutuante> PONTOFLUTUANTE
+%token PROP ID
+%token INTEIRO
+%token PONTOFLUTUANTE
 %%
 
-programa: programa classeDecl 
-			| classeDecl	
+programa: programa classeDecl {printar();}
+			| classeDecl {printar();}	
 			;
 
-classeDecl: Class ID {cout << textoTemporario; 
-					textoTemporario = yytext + string(" --> ");} 
-					classBody {textoTemporario += string("\n"); contadorClasses++; limpar();  } 
+classeDecl: Class ID {classeEmAnalise = yytext;textoTemporario = string(yytext) + " --> ";} 
+					classBody {contadorClasses++;}
 			;
-classBody: subclasse opcional{textoTemporario += "Primitiva"; contadorPrimitivas++;}
-					 | equivalencia subclasse opcional{textoTemporario += "Definida"; contadorDefinidas++;}
-					 | enumerado subclasse opcional{textoTemporario += "Definida enumerada"; contadorEnumeradas++; contadorDefinidas++;}
+classBody: subclasse opcional{tiposClasse += "Primitiva"; contadorPrimitivas++;}
+					 | equivalencia subclasse opcional{tiposClasse += "Definida"; contadorDefinidas++;}
+					 | enumerado subclasse opcional{tiposClasse += "Definida enumerada"; contadorEnumeradas++; contadorDefinidas++;}
 					 | equivalenciaTipos opcional
-					 | coberta subclasse opcional{textoTemporario += "Coberta, Definida"; contadorCobertas++; contadorDefinidas++;}
-					 | subclasse equivalenciaTipos opcional{erroSemantico = true;yyerror("Erro semântico! Ordem errada de operadores.");}
+					 | coberta subclasse opcional{tiposClasse += "Coberta, Definida"; contadorCobertas++; contadorDefinidas++;}
+					 | subclasse equivalenciaTipos opcional{erroSemantico = true;yyerror("Erro semântico! SubclassOf antes de EquivalentTo. ");}
 					 ;
-equivalenciaTipos: enumerado{textoTemporario   += "Definida enumerada"; enumerada.insert(classeEmAnalise); contadorEnumeradas++; contadorDefinidas++;}
-					 | coberta{textoTemporario += "Definida coberta"; contadorCobertas++; contadorDefinidas++;}
-					 | equivalencia{textoTemporario  += "Definida"; contadorDefinidas++;}
+equivalenciaTipos: enumerado{tiposClasse += "Definida enumerada"; enumerada.insert(classeEmAnalise); contadorEnumeradas++; contadorDefinidas++;}
+					 | coberta{tiposClasse += "Definida coberta"; contadorCobertas++; contadorDefinidas++;}
+					 | equivalencia{tiposClasse  += "Definida"; contadorDefinidas++;}
 opcional:  disjuncao individuos
-					| individuos disjuncao {erroSemantico = true;yyerror("Erro semântico! Ordem errada de operadores.");}
+					| individuos disjuncao {erroSemantico = true;yyerror("Erro semântico! Individuals antes de DisjointClasses. ");}
 					| individuos 
 					| disjuncao
 					|
@@ -94,22 +107,22 @@ opcional:  disjuncao individuos
 /*SubClassOf*/
 subclasse: SubClassOf subclasseBody
 			;
-subclasseBody: subclasseBody subClasseProperty 
+subclasseBody: subclasseBody {propEmAnalise = yytext;} subClasseProperty 
 					| subClasseProperty
 			;
-subClasseProperty: PROP SOME ID divisor {props.push_back($1); textoTemporario += string($1) + string(" : ") + string("Object Property") + string("\n");}
-					| PROP SOME TYPE divisor {textoTemporario +=  string($1) + string(" : ") + string("Data Property") + string("\n");}
+subClasseProperty: PROP SOME identificador divisor {propsPerClass[propEmAnalise] = string("Object Property");}
+					| PROP SOME TYPE divisor {propsPerClass[propEmAnalise] = string("Data Property");}
 					| PROP minMaxExactly INTEIRO optionalType divisor 
 					| PROP minMaxExactly optionalType divisor {ErroSemanticoMinMaxExactly(); }
 					| PROP VALUE NAME divisor
 					| ABREPARENTESES equivalenciaExpression FECHAPARENTESES andOrNothing divisor
 					| ID descricao divisor
 					| ID divisor
-					|PROP ONLY onlyExpression{textoTemporario +=  string("Com fechamento, "); contadorFechamentos++;}
+					| PROP ONLY onlyExpression{tiposClasse +=  string("Com fechamento, "); contadorFechamentos++;}
+					| ABREPARENTESES PROP minMaxExactly INTEIRO TYPE FECHAPARENTESES divisor
+					| ABREPARENTESES PROP minMaxExactly TYPE FECHAPARENTESES divisor{ erroSemantico = true; yyerror("Erro semântico! É esperado um operador antes do inteiro");}
 			;
-
-					
-
+identificador: ID {props.push_back(yytext);}
 /*EquivalentTo*/
 equivalencia: EquivalentTo ID conjuntoDescricoes
 			;
@@ -120,26 +133,27 @@ enumerado: EquivalentTo ABRECHAVE conjuntoDeInstancias FECHACHAVE
 coberta: EquivalentTo conjuntoDeClasses
 		;
 
-conjuntoDescricoes: conjuntoDescricoes descricao 
+conjuntoDescricoes: conjuntoDescricoes descricao
 					| descricao
 			;
 descricao: AND descricaoExpression
 			;
-descricaoExpression: ABREPARENTESES equivalenciaExpression FECHAPARENTESES
+descricaoExpression: ABREPARENTESES PROP{propEmAnalise = yytext;} equivalenciaExpression FECHAPARENTESES
 			;
-equivalenciaExpression:	PROP SOME ID {textoTemporario += string($1) + string(" : ") + string("Object Property") + string("\n");props.push_back($1);}
-					| PROP SOME TYPEINTEGER ABRECOLCHETE RELATIONAL INTEIRO FECHACOLCHETE 
-					| PROP SOME TYPEINTEGER ABRECOLCHETE RELATIONAL FECHACOLCHETE {erroSemantico = true; yyerror("Erro semântico! É esperado um inteiro depois do operador"); }
-					| PROP SOME TYPEINTEGER ABRECOLCHETE INTEIRO FECHACOLCHETE { erroSemantico = true; yyerror("Erro semântico! É esperado um operador antes do inteiro");}
-					| PROP SOME TYPE { textoTemporario += string($1) + string(" : ") + string("Data Property") + string("\n");}
-					| PROP SOME descricaoExpression {textoTemporario += string("Com aninhamento, "); contadorAninhadas++;}
-					| PROP VALUE NAME
-					| PROP minMaxExactly INTEIRO optionalType
-					| PROP minMaxExactly optionalType{ErroSemanticoMinMaxExactly(); }
-					| PROP minMaxExactly INTEIRO ID
-					| PROP minMaxExactly ID{ErroSemanticoMinMaxExactly(); }
-					| PROP ONLY onlyExpression
+equivalenciaExpression:	SOME identificador {;propsPerClass[propEmAnalise] = string("Object Property");}
+					| SOME TYPEINTEGER ABRECOLCHETE RELATIONAL INTEIRO FECHACOLCHETE {propsPerClass[propEmAnalise] = string("Data Property");}
+					| SOME TYPEINTEGER ABRECOLCHETE RELATIONAL FECHACOLCHETE {erroSemantico = true; yyerror("Erro semântico! É esperado um inteiro depois do operador");}
+					| SOME TYPEINTEGER ABRECOLCHETE INTEIRO FECHACOLCHETE { erroSemantico = true; yyerror("Erro semântico! É esperado um operador antes do inteiro");}
+					| SOME TYPE {propsPerClass[propEmAnalise] = string("Data Property");}
+					| SOME aninhamento {textoTemporario += string("Com aninhamento, "); contadorAninhadas++;}
+					| VALUE NAME
+					| minMaxExactly INTEIRO optionalType
+					| minMaxExactly optionalType{ErroSemanticoMinMaxExactly(); }
+					| minMaxExactly INTEIRO ID
+					| minMaxExactly ID{ErroSemanticoMinMaxExactly(); }
+					| ONLY onlyExpression
 			;
+aninhamento: descricaoExpression;
 conjuntoDeInstancias: conjuntoDeInstancias VIRGULA NAME|
 						NAME
 			;
@@ -160,10 +174,12 @@ listaClasses: listaClasses ID divisor
 					| ID divisor
 			;
 onlyExpression: ABREPARENTESES onlyExpressionClasses FECHAPARENTESES 
-					| ID {isPropDeclared($1);}
+					| idOnly
 			;
-onlyExpressionClasses: ID OR onlyExpressionClasses {{isPropDeclared($1);}} 
-					| ID {isPropDeclared($1);}
+onlyExpressionClasses: idOnly OR onlyExpressionClasses 
+					| idOnly
+			;
+idOnly: ID{isPropDeclared(yytext);}
 			;
 optionalType: TYPE | 
 			;
@@ -195,10 +211,9 @@ int main(int argc, char ** argv)
 		/* entrada ajustada para ler do arquivo */
 		yyin = file;
 	}
-
-	yyparse();
+		yyparse();
 	if(!erro){
-		cout << textoTemporario;
+		//cout << textoTemporario;
 		// printando os resultados (Os contadores)
 		cout << std::endl << std::endl;
 		cout << "Contagem dos tipos de classes : " << std::endl;
@@ -211,8 +226,6 @@ int main(int argc, char ** argv)
 		cout << "Total de classes diferentes : " << contadorClasses << std::endl;
 
 	}
-
-
 }
 
 void yyerror(const char * s)
@@ -222,10 +235,9 @@ void yyerror(const char * s)
 	extern int yylineno;    
 	extern char * yytext;   
 	if(erroSemantico){
-		cout << s << " - linha " << yylineno << "\n";
+		cout << s << "Classe com erro : " << classeEmAnalise << "\n";
 	}else{
-		cout << s << std::endl;
-	/* mensagem de erro exibe o símbolo que causou erro e o número da linha */
+		/* mensagem de erro exibe o símbolo que causou erro e o número da linha */
     cout << "Erro: símbolo \"" << yytext << "\" (linha " << yylineno << ")\n";
 	}
 }

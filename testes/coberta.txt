@@ -1,2 +1,0 @@
-Class: Spiciness
-EquivalentTo: Hot or Medium or Mild

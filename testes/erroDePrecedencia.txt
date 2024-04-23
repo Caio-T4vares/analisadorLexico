@@ -1,0 +1,12 @@
+Class: MargatritaPizza
+SubClassOf:
+NamedPizza,
+hasTopping some MozzarellaTopping,
+hasTopping some TomatoTopping,
+hasTopping only (MozzarellaTopping or TomatoTopping)
+EquivalentTo:
+Person
+and (purchasedPizza some Pizza)
+and (hasPhone some xsd:string)
+Individuals: Margatia1, Margatira2
+DisjointClasses: AmericanaHotPizza, AmericanaPizza, SohoPizza
